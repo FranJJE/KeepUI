@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "id": "KeepUINgAdd",
+  "title": "Add KeepUI to an Angular project",
+  "type": "object",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "The name of the project to add KeepUI to.",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+  },
+  "required": []
+}

@@ -371,6 +371,7 @@ Always use this checklist.
 - single responsibility
 - avoid duplication
 - avoid unnecessary logic inside the template
+- avoid writing comments of any kind, except for JSDoc when it adds value
 
 ### UI
 

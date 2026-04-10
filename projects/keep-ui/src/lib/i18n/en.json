@@ -1,0 +1,9 @@
+{
+  "imagePreview": {
+    "selectImage": "Select image",
+    "loading": "Loading…",
+    "previewAlt": "Selected image preview",
+    "errorUnexpected": "An unexpected error occurred"
+  }
+}
+

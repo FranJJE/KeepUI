@@ -1,5 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
+import { TranslocoPipe, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 import { FILE_PORT } from '../../tokens/file.token';
+import { KEEPUI_TRANSLATION_KEYS as T } from '../../i18n/translation-keys';
 
 /**
  * Standalone component that allows the user to pick and preview an image.
@@ -7,18 +9,24 @@ import { FILE_PORT } from '../../tokens/file.token';
  * This component is fully platform-agnostic. It delegates file picking to
  * whatever `FilePort` implementation is provided via `FILE_PORT`.
  *
+ * UI strings are fully internationalised via Transloco (scope `'keepui'`).
+ * Call `provideKeepUiI18n()` in your `app.config.ts` and use
+ * `KeepUiLanguageService.setLanguage(lang)` to change locale at runtime.
+ *
  * Usage:
  * ```html
  * <keepui-image-preview />
  * ```
  *
- * Prerequisites — register a provider in `app.config.ts`:
- * - Web:      `provideKeepUi()`
- * - Capacitor: `provideKeepUiCapacitor()`
+ * Prerequisites — register providers in `app.config.ts`:
+ * - Web:      `provideKeepUi()` + `provideKeepUiI18n()`
+ * - Capacitor: `provideKeepUiCapacitor()` + `provideKeepUiI18n()`
  */
 @Component({
   selector: 'keepui-image-preview',
   standalone: true,
+  imports: [TranslocoPipe],
+  providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'keepui' }],
   host: { class: 'block' },
   template: `
     <div class="flex flex-col gap-4">
@@ -32,7 +40,7 @@ import { FILE_PORT } from '../../tokens/file.token';
                disabled:opacity-50 disabled:cursor-not-allowed disabled:text-keepui-text-disabled
                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-keepui-primary focus-visible:ring-offset-1"
       >
-        {{ loading() ? 'Cargando…' : 'Seleccionar imagen' }}
+        {{ (loading() ? keys.LOADING : keys.SELECT_IMAGE) | transloco }}
       </button>
 
       @if (imageUrl()) {
@@ -40,7 +48,7 @@ import { FILE_PORT } from '../../tokens/file.token';
           <img
             class="max-w-full h-auto rounded border border-keepui-border"
             [src]="imageUrl()"
-            alt="Vista previa de imagen seleccionada"
+            [attr.alt]="keys.PREVIEW_ALT | transloco"
           />
         </div>
       }
@@ -53,6 +61,9 @@ import { FILE_PORT } from '../../tokens/file.token';
 })
 export class ImagePreviewComponent {
   private readonly filePort = inject(FILE_PORT);
+
+  /** Translation key references (typed via KEEPUI_TRANSLATION_KEYS). */
+  protected readonly keys = T.IMAGE_PREVIEW;
 
   /** URL of the selected image, ready to bind to `[src]`. */
   readonly imageUrl = signal<string | null>(null);
@@ -69,7 +80,9 @@ export class ImagePreviewComponent {
       const result = await this.filePort.pickImage();
       this.imageUrl.set(result.dataUrl);
     } catch (err) {
-      this.error.set(err instanceof Error ? err.message : 'An unexpected error occurred');
+      this.error.set(
+        err instanceof Error ? err.message : T.IMAGE_PREVIEW.ERROR_UNEXPECTED,
+      );
     } finally {
       this.loading.set(false);
     }

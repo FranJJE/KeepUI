@@ -1,5 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { KeepUiLanguageService, KeepUiLanguage } from '@keepui/ui';
 
 interface NavItem {
   path: string;
@@ -31,8 +32,6 @@ interface NavGroup {
 
       <!-- ══════════════════════════════════
            SIDEBAR
-           Desktop: in-flow (w-64)
-           Mobile: fixed drawer, slides from left
       ════════════════════════════════════ -->
       <aside [class]="sidebarClass()">
 
@@ -78,8 +77,22 @@ interface NavGroup {
           }
         </nav>
 
-        <!-- Footer: theme toggle -->
-        <div class="p-4 shrink-0 border-t border-keepui-border">
+        <!-- Footer: language selector + theme toggle -->
+        <div class="p-4 shrink-0 border-t border-keepui-border flex flex-col gap-2">
+
+          <!-- Language selector -->
+          <div class="flex items-center gap-1" role="group" aria-label="Idioma de KeepUI">
+            <span class="text-xs text-keepui-text-muted mr-1">🌐</span>
+            @for (lang of availableLangs; track lang) {
+              <button
+                (click)="setLanguage(lang)"
+                [class]="langBtnClass(lang)"
+                [attr.aria-pressed]="activeLang() === lang"
+              >{{ lang.toUpperCase() }}</button>
+            }
+          </div>
+
+          <!-- Theme toggle -->
           <button
             class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded text-sm
                    border border-keepui-border bg-keepui-surface text-keepui-text
@@ -137,8 +150,16 @@ interface NavGroup {
   `,
 })
 export class AppComponent {
+  private readonly langService = inject(KeepUiLanguageService);
+
   sidebarOpen = signal(false);
   isDark = signal(false);
+
+  /** Reactive signal with the active KeepUI locale. */
+  readonly activeLang = this.langService.activeLanguage;
+
+  /** All supported KeepUI locales. */
+  readonly availableLangs: readonly KeepUiLanguage[] = this.langService.availableLanguages;
 
   navGroups: NavGroup[] = [
     {
@@ -171,6 +192,19 @@ export class AppComponent {
       this.sidebarOpen() ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
     ].join(' '),
   );
+
+  /** Clases del botón de idioma según si está activo o no. */
+  langBtnClass(lang: KeepUiLanguage): string {
+    const base =
+      'flex-1 py-1 rounded text-xs font-semibold transition-colors duration-150';
+    return this.activeLang() === lang
+      ? `${base} bg-keepui-primary text-keepui-primary-fg`
+      : `${base} border border-keepui-border text-keepui-text-muted hover:bg-keepui-surface-hover`;
+  }
+
+  setLanguage(lang: KeepUiLanguage): void {
+    this.langService.setLanguage(lang);
+  }
 
   openSidebar(): void {
     this.sidebarOpen.set(true);

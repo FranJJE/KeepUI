@@ -1,0 +1,9 @@
+{
+  "imagePreview": {
+    "selectImage": "Bild auswählen",
+    "loading": "Laden…",
+    "previewAlt": "Vorschau des ausgewählten Bildes",
+    "errorUnexpected": "Ein unerwarteter Fehler ist aufgetreten"
+  }
+}
+

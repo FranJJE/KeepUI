@@ -20,25 +20,45 @@ describe('CardComponent', () => {
   });
 
   it('should render a card div', () => {
-    const card = fixture.nativeElement.querySelector('.keepui-card') as HTMLElement;
+    const card = fixture.nativeElement.querySelector('div') as HTMLElement;
     expect(card).toBeTruthy();
   });
 
-  it('should apply elevation-1 class by default', () => {
-    const card = fixture.nativeElement.querySelector('.keepui-card') as HTMLElement;
-    expect(card.classList).toContain('keepui-card--elevation-1');
+  it('should default to elevation 1', () => {
+    expect(component.elevation()).toBe(1);
   });
 
-  it('should apply the specified elevation class', () => {
+  it('should apply shadow class for elevation 1 by default', () => {
+    const card = fixture.nativeElement.querySelector('div') as HTMLElement;
+    expect(card.classList).toContain('shadow-keepui-sm');
+  });
+
+  it('should apply correct shadow class for elevation 2', () => {
+    fixture.componentRef.setInput('elevation', 2);
+    fixture.detectChanges();
+    const card = fixture.nativeElement.querySelector('div') as HTMLElement;
+    expect(card.classList).toContain('shadow-keepui-md');
+  });
+
+  it('should apply correct shadow class for elevation 3', () => {
     fixture.componentRef.setInput('elevation', 3);
     fixture.detectChanges();
-    const card = fixture.nativeElement.querySelector('.keepui-card') as HTMLElement;
-    expect(card.classList).toContain('keepui-card--elevation-3');
+    const card = fixture.nativeElement.querySelector('div') as HTMLElement;
+    expect(card.classList).toContain('shadow-keepui-lg');
+  });
+
+  it('should not apply shadow class for elevation 0', () => {
+    fixture.componentRef.setInput('elevation', 0);
+    fixture.detectChanges();
+    const card = fixture.nativeElement.querySelector('div') as HTMLElement;
+    expect(card.classList).not.toContain('shadow-keepui-sm');
+    expect(card.classList).not.toContain('shadow-keepui-md');
+    expect(card.classList).not.toContain('shadow-keepui-lg');
   });
 
   it('should project content via ng-content', () => {
     const host: HTMLElement = fixture.nativeElement;
-    host.querySelector('.keepui-card')!.innerHTML = '<span id="test-content">Hello</span>';
+    host.querySelector('div')!.innerHTML = '<span id="test-content">Hello</span>';
     expect(host.querySelector('#test-content')).toBeTruthy();
   });
 });

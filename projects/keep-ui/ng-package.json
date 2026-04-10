@@ -5,7 +5,8 @@
   },
   "assets": [
     "./schematics/**",
-    "./README.md"
+    "./README.md",
+    { "input": "./src/lib/styles", "glob": "**/*.css", "output": "./styles" }
   ],
   "dest": "../../dist/keep-ui"
 }

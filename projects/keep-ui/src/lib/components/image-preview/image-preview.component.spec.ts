@@ -24,7 +24,7 @@ describe('ImagePreviewComponent', () => {
 
   it('should show no image initially', () => {
     expect(component.imageUrl()).toBeNull();
-    const img = fixture.nativeElement.querySelector('.keepui-image-preview__img');
+    const img = fixture.nativeElement.querySelector('img');
     expect(img).toBeNull();
   });
 
@@ -41,9 +41,7 @@ describe('ImagePreviewComponent', () => {
     fixture.detectChanges();
 
     expect(component.imageUrl()).toBe('data:image/jpeg;base64,mockImageData==');
-    const img = fixture.nativeElement.querySelector(
-      '.keepui-image-preview__img',
-    ) as HTMLImageElement;
+    const img = fixture.nativeElement.querySelector('img') as HTMLImageElement;
     expect(img).toBeTruthy();
     expect(img.getAttribute('src')).toBe('data:image/jpeg;base64,mockImageData==');
   });
@@ -71,9 +69,8 @@ describe('ImagePreviewComponent', () => {
     await component.pickImage();
     fixture.detectChanges();
 
-    const errorEl = fixture.nativeElement.querySelector(
-      '.keepui-image-preview__error',
-    ) as HTMLElement;
+    // El error se muestra en un <p role="alert">
+    const errorEl = fixture.nativeElement.querySelector('[role="alert"]') as HTMLElement;
     expect(errorEl).toBeTruthy();
     expect(errorEl.textContent?.trim()).toBe('Permission denied');
   });

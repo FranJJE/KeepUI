@@ -3,6 +3,45 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "demo": {
+      "projectType": "application",
+      "root": "projects/demo",
+      "sourceRoot": "projects/demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/demo",
+            "index": "projects/demo/src/index.html",
+            "browser": "projects/demo/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/demo/tsconfig.app.json",
+            "styles": ["projects/demo/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": { "buildTarget": "demo:build:production" },
+            "development": { "buildTarget": "demo:build:development" }
+          },
+          "defaultConfiguration": "development"
+        }
+      }
+    },
     "keep-ui": {
       "projectType": "library",
       "root": "projects/keep-ui",

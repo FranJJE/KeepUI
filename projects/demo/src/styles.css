@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@import "../../keep-ui/src/lib/styles/_index.css";
+
+/* Body recibe colores y transición del tema via CSS vars.
+   Tailwind preflight ya elimina el margin por defecto. */
+body {
+  font-family: var(--keepui-font-family, system-ui, -apple-system, sans-serif);
+  background-color: var(--keepui-background);
+  color: var(--keepui-text);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}

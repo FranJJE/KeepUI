@@ -1,0 +1,130 @@
+/*
+ * KeepUI — Default Theme
+ *
+ * This file defines all the CSS custom properties (design tokens) used by
+ * KeepUI components.  Import it once in your application's global stylesheet:
+ *
+ *   @import "@keepui/ui/styles/themes.css";
+ *
+ * ─── How to customise ───────────────────────────────────────────────────
+ *
+ * Override any variable in your own CSS to create a custom theme:
+ *
+ *   :root {
+ *     --keepui-primary:   #6366f1;
+ *     --keepui-primary-hover: #4f46e5;
+ *   }
+ *
+ *   [data-theme="dark"] {
+ *     --keepui-primary:   #818cf8;
+ *     --keepui-primary-hover: #a5b4fc;
+ *   }
+ *
+ * ─── Switching themes at runtime ────────────────────────────────────────
+ *
+ * Add `data-theme="dark"` to <html> or any ancestor element:
+ *
+ *   document.documentElement.setAttribute('data-theme', 'dark');
+ *
+ * Or rely on the user's OS preference — the defaults already include
+ * a `@media (prefers-color-scheme: dark)` block.
+ * ────────────────────────────────────────────────────────────────────────
+ */
+
+/* ===== LIGHT THEME (default) ===== */
+:root {
+  /* ── Brand ── */
+  --keepui-primary:            #3b82f6;
+  --keepui-primary-hover:      #2563eb;
+  --keepui-primary-active:     #1d4ed8;
+  --keepui-primary-foreground:  #ffffff;
+
+  /* ── Surfaces ── */
+  --keepui-background:         #f5f5f5;
+  --keepui-surface:            #ffffff;
+  --keepui-surface-hover:      #f0f0f0;
+
+  /* ── Borders ── */
+  --keepui-border:             #e0e0e0;
+  --keepui-border-strong:      #cccccc;
+
+  /* ── Text ── */
+  --keepui-text:               #1f2937;
+  --keepui-text-muted:         #6b7280;
+  --keepui-text-disabled:      #9ca3af;
+
+  /* ── Feedback ── */
+  --keepui-error:              #dc2626;
+  --keepui-error-foreground:   #ffffff;
+  --keepui-success:            #16a34a;
+  --keepui-warning:            #f59e0b;
+
+  /* ── Misc ── */
+  --keepui-radius:             0.5rem;
+  --keepui-radius-sm:          0.25rem;
+  --keepui-shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.12);
+  --keepui-shadow-md:          0 3px 6px rgba(0, 0, 0, 0.15);
+  --keepui-shadow-lg:          0 6px 12px rgba(0, 0, 0, 0.18);
+  --keepui-transition:         0.2s ease;
+  --keepui-disabled-opacity:   0.5;
+  --keepui-font-family:        system-ui, -apple-system, sans-serif;
+}
+
+/* ===== DARK THEME ===== */
+[data-theme="dark"] {
+  --keepui-primary:            #60a5fa;
+  --keepui-primary-hover:      #93c5fd;
+  --keepui-primary-active:     #3b82f6;
+  --keepui-primary-foreground:  #0f172a;
+
+  --keepui-background:         #0f172a;
+  --keepui-surface:            #1e293b;
+  --keepui-surface-hover:      #334155;
+
+  --keepui-border:             #334155;
+  --keepui-border-strong:      #475569;
+
+  --keepui-text:               #f1f5f9;
+  --keepui-text-muted:         #94a3b8;
+  --keepui-text-disabled:      #64748b;
+
+  --keepui-error:              #f87171;
+  --keepui-error-foreground:   #0f172a;
+  --keepui-success:            #4ade80;
+  --keepui-warning:            #fbbf24;
+
+  --keepui-shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.4);
+  --keepui-shadow-md:          0 3px 6px rgba(0, 0, 0, 0.45);
+  --keepui-shadow-lg:          0 6px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== Auto dark (OS preference) ===== */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --keepui-primary:            #60a5fa;
+    --keepui-primary-hover:      #93c5fd;
+    --keepui-primary-active:     #3b82f6;
+    --keepui-primary-foreground:  #0f172a;
+
+    --keepui-background:         #0f172a;
+    --keepui-surface:            #1e293b;
+    --keepui-surface-hover:      #334155;
+
+    --keepui-border:             #334155;
+    --keepui-border-strong:      #475569;
+
+    --keepui-text:               #f1f5f9;
+    --keepui-text-muted:         #94a3b8;
+    --keepui-text-disabled:      #64748b;
+
+    --keepui-error:              #f87171;
+    --keepui-error-foreground:   #0f172a;
+    --keepui-success:            #4ade80;
+    --keepui-warning:            #fbbf24;
+
+    --keepui-shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.4);
+    --keepui-shadow-md:          0 3px 6px rgba(0, 0, 0, 0.45);
+    --keepui-shadow-lg:          0 6px 12px rgba(0, 0, 0, 0.5);
+  }
+}
+

@@ -1,0 +1,73 @@
+/*
+ * KeepUI — Styles entry point
+ *
+ * Import this file once in your application's global stylesheet:
+ *
+ *   @import "@keepui/ui/styles";
+ *
+ * It includes:
+ *   - Default light & dark theme tokens (CSS custom properties)
+ *   - Tailwind CSS v4 theme mappings via @theme inline
+ *
+ * ─── Tailwind v4 utilities generated ────────────────────────────────────────
+ *
+ * Surface & background:
+ *   bg-keepui-background    bg-keepui-surface    bg-keepui-surface-hover
+ *
+ * Text:
+ *   text-keepui-text    text-keepui-text-muted    text-keepui-text-disabled
+ *
+ * Borders:
+ *   border-keepui-border    border-keepui-border-strong
+ *
+ * Brand / Primary:
+ *   bg-keepui-primary    bg-keepui-primary-hover    bg-keepui-primary-active
+ *   text-keepui-primary-fg    border-keepui-primary
+ *
+ * Feedback:
+ *   text-keepui-error    bg-keepui-error    bg-keepui-success    bg-keepui-warning
+ *
+ * Shadows:
+ *   shadow-keepui-sm    shadow-keepui-md    shadow-keepui-lg
+ *
+ * ─── Requirements ───────────────────────────────────────────────────────────
+ *
+ * Your application must process this file with Tailwind CSS v4 (e.g. via
+ * @tailwindcss/postcss or @tailwindcss/vite) to generate the utility classes.
+ * ────────────────────────────────────────────────────────────────────────────
+ */
+
+@import "./themes.css";
+
+@theme inline {
+  /* ── Surfaces ── */
+  --color-keepui-background:      var(--keepui-background);
+  --color-keepui-surface:         var(--keepui-surface);
+  --color-keepui-surface-hover:   var(--keepui-surface-hover);
+
+  /* ── Borders ── */
+  --color-keepui-border:          var(--keepui-border);
+  --color-keepui-border-strong:   var(--keepui-border-strong);
+
+  /* ── Text ── */
+  --color-keepui-text:            var(--keepui-text);
+  --color-keepui-text-muted:      var(--keepui-text-muted);
+  --color-keepui-text-disabled:   var(--keepui-text-disabled);
+
+  /* ── Primary ── */
+  --color-keepui-primary:         var(--keepui-primary);
+  --color-keepui-primary-hover:   var(--keepui-primary-hover);
+  --color-keepui-primary-active:  var(--keepui-primary-active);
+  --color-keepui-primary-fg:      var(--keepui-primary-foreground);
+
+  /* ── Feedback ── */
+  --color-keepui-error:           var(--keepui-error);
+  --color-keepui-error-fg:        var(--keepui-error-foreground);
+  --color-keepui-success:         var(--keepui-success);
+  --color-keepui-warning:         var(--keepui-warning);
+
+  /* ── Shadows ── */
+  --shadow-keepui-sm: var(--keepui-shadow-sm);
+  --shadow-keepui-md: var(--keepui-shadow-md);
+  --shadow-keepui-lg: var(--keepui-shadow-lg);
+}

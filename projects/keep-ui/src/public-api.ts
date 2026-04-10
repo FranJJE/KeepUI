@@ -13,6 +13,7 @@ export * from './lib/tokens/file.token';
 export * from './lib/services/web-file.service';
 
 // Components
+export * from './lib/components/button/button.types';
 export * from './lib/components/button/button.component';
 export * from './lib/components/card/card.component';
 export * from './lib/components/image-preview/image-preview.component';

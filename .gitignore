@@ -39,6 +39,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# KeepUI examples (internal design references, not part of the library)
+/projects/keep-ui/examples
+
 # Schematics compiled output (committed .js alongside .ts for npm publish)
 # Uncomment if you want to ignore schematics compiled output:
 # projects/keep-ui/schematics/**/*.js

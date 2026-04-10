@@ -1,7 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject, signal } from '@angular/core';
 import { TranslocoPipe, TRANSLOCO_SCOPE } from '@jsverse/transloco';
 import { FILE_PORT } from '../../tokens/file.token';
 import { KEEPUI_TRANSLATION_KEYS as T } from '../../i18n/translation-keys';
+import { ButtonComponent } from '../button/button.component';
 
 /**
  * Standalone component that allows the user to pick and preview an image.
@@ -25,23 +26,29 @@ import { KEEPUI_TRANSLATION_KEYS as T } from '../../i18n/translation-keys';
 @Component({
   selector: 'keepui-image-preview',
   standalone: true,
-  imports: [TranslocoPipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [TranslocoPipe, ButtonComponent],
   providers: [{ provide: TRANSLOCO_SCOPE, useValue: 'keepui' }],
   host: { class: 'block' },
   template: `
     <div class="flex flex-col gap-4">
-      <button
+
+      <keepui-button
         type="button"
-        [disabled]="loading()"
-        (click)="pickImage()"
-        class="self-start px-5 py-2 text-base rounded border cursor-pointer transition-colors duration-200
-               bg-keepui-surface text-keepui-text border-keepui-border
-               enabled:hover:bg-keepui-surface-hover enabled:hover:border-keepui-border-strong
-               disabled:opacity-50 disabled:cursor-not-allowed disabled:text-keepui-text-disabled
-               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-keepui-primary focus-visible:ring-offset-1"
+        variant="secondary"
+        size="auto"
+        shape="rounded"
+        [loading]="loading()"
+        (clicked)="pickImage()"
       >
         {{ (loading() ? keys.LOADING : keys.SELECT_IMAGE) | transloco }}
-      </button>
+      </keepui-button>
+
+      <span role="status" class="sr-only">
+        @if (imageUrl()) {
+          {{ keys.PREVIEW_ALT | transloco }}
+        }
+      </span>
 
       @if (imageUrl()) {
         <div class="max-w-full">
@@ -56,6 +63,7 @@ import { KEEPUI_TRANSLATION_KEYS as T } from '../../i18n/translation-keys';
       @if (error()) {
         <p class="text-keepui-error text-sm m-0" role="alert">{{ error() }}</p>
       }
+
     </div>
   `,
 })

@@ -116,16 +116,107 @@ Each component must be designed with a clear API:
 - consistent naming
 - avoid coupling business logic to the component
 
-### 3. Minimum Required Accessibility
+### 3. Accessibility as a First-Class Requirement
 
-Every component must address at least:
+Accessibility is not optional. Every component must fully satisfy the following requirements before it is considered done.
 
-- accessible labels or names when applicable
-- visible focus
-- correct use of buttons, inputs, roles, and ARIA attributes when necessary
-- acceptable contrast in light/dark
+#### Semantic structure
 
-### 4. Responsiveness
+- use the correct HTML element for each role (`<button>`, `<input>`, `<a>`, etc.)
+- use non-semantic elements (`<div>`, `<span>`) only when no semantic alternative exists, and always add the corresponding `role`
+- never suppress the browser's native focus management without providing an explicit alternative
+
+#### ARIA attributes
+
+Apply ARIA attributes wherever the native HTML alone is not sufficient:
+
+| State / Need | Attribute |
+|---|---|
+| Disabled (non-native) | `aria-disabled="true"` |
+| Loading / in progress | `aria-busy="true"` |
+| Expanded / collapsed | `aria-expanded` |
+| Selected | `aria-selected` |
+| Required field | `aria-required="true"` |
+| Invalid field | `aria-invalid="true"` + `aria-describedby` pointing to the error |
+| Icon-only control | `aria-label` on the control; `aria-hidden="true"` on the decorative icon |
+| Live region | `role="status"` or `role="alert"` for dynamic content |
+
+#### Keyboard navigation
+
+- all interactive elements must be reachable and operable with the keyboard alone
+- `Enter` and `Space` must activate buttons and clickable controls
+- modals, drawers, and overlays must trap focus while open and restore it on close
+- `Escape` must close dismissible elements
+- do not use `tabindex` values greater than `0`
+
+#### Visual focus
+
+- all interactive elements must show a visible focus ring when focused via keyboard
+- use `focus-visible:ring-2 focus-visible:ring-keepui-primary focus-visible:ring-offset-2` or an equivalent pattern
+- do not use `outline: none` without providing a custom focus style
+
+#### Touch targets (mobile / Capacitor)
+
+- every interactive element must have a minimum touch target of **44 × 44 px** (iOS HIG) or **48 × 48 dp** (Android)
+- use `min-h-[2.75rem] min-w-[2.75rem]` as the minimum safe values in Tailwind
+
+#### Color and contrast
+
+- do not rely solely on color to convey meaning — always pair color with text, icon, or pattern
+- maintain a minimum contrast ratio of **4.5:1** for body text and **3:1** for large text and UI components
+- validate contrast in both `light` and `dark` themes
+
+#### Screen reader announcements
+
+- state changes that are not visually obvious (loading completion, errors, success messages) must be announced via a live region (`role="status"` or `role="alert"`)
+- loading spinners must have `aria-hidden="true"` on the visual element and the containing button must carry `aria-busy="true"`
+
+### 4. Internationalisation (i18n)
+
+KeepUI uses **`@jsverse/transloco`** as its i18n solution with the translation scope `'keepui'`.
+
+#### When to add translations
+
+Add transloco support whenever a component exposes any user-visible string that is not a developer-supplied value — e.g., button labels, placeholder text, error messages, ARIA labels generated internally.
+
+Do **not** add transloco to purely structural or container components that render only consumer-provided content.
+
+#### How to add translations
+
+1. **Define typed keys** — add the new keys to `KEEPUI_TRANSLATION_KEYS` in `src/lib/i18n/translation-keys.ts` following the naming pattern `componentName.keyName`:
+
+   ```ts
+   export const KEEPUI_TRANSLATION_KEYS = {
+     MY_COMPONENT: {
+       LABEL: 'myComponent.label',
+       ERROR: 'myComponent.error',
+     },
+   } as const;
+   ```
+
+2. **Add translation files** — add the key/value pairs to every supported language (`en`, `es`, `de`) in the corresponding JSON or TS translation assets.
+
+3. **Register the scope** — add `{ provide: TRANSLOCO_SCOPE, useValue: 'keepui' }` to the component's `providers` array.
+
+4. **Use the pipe in templates** — bind via `{{ key | transloco }}` or `[attr.aria-label]="key | transloco"`. Never hardcode UI strings.
+
+5. **Export the keys** — `KEEPUI_TRANSLATION_KEYS` is already exported from `public-api.ts`. When adding a new component namespace, verify the export is in place.
+
+#### Supported languages
+
+| Code | Language |
+|---|---|
+| `en` | English |
+| `es` | Spanish |
+| `de` | German |
+
+Every new translation key must have values in all three languages before the component is considered done.
+
+#### Provider requirement
+
+Consumers must call `provideKeepUiI18n()` in their `app.config.ts` to activate transloco support. Document this requirement in the component's JSDoc.
+
+### 5. Responsiveness
 
 Components must behave reasonably well on:
 
@@ -269,6 +360,8 @@ Identify if it affects:
 - Capacitor support
 - public API
 - tests
+- accessibility (ARIA, keyboard, contrast, touch targets)
+- i18n (new user-visible strings, new translation keys)
 
 ### B. Implement in the Library
 
@@ -280,6 +373,9 @@ Create or modify:
 - providers
 - exports
 - tests
+- ARIA attributes and keyboard behaviour if interactive
+- translation keys in `translation-keys.ts` if the component has internal strings
+- translation values in all supported languages (`en`, `es`, `de`) if keys were added
 
 ### C. Reflect Changes in Demo
 
@@ -310,6 +406,8 @@ A task on a component is not considered closed if any of these points is missing
 - demo updated
 - light validated
 - dark validated
+- accessibility requirements met (ARIA, keyboard, focus ring, contrast, touch targets)
+- translation keys added and filled in all supported languages (when applicable)
 
 ---
 
@@ -323,12 +421,21 @@ Always use this checklist.
 - [ ] implement standalone component
 - [ ] define inputs/outputs if applicable
 - [ ] apply styles with Tailwind
-- [ ] address basic accessibility
+- [ ] use correct semantic HTML elements
+- [ ] add ARIA attributes (`aria-label`, `aria-busy`, `aria-disabled`, `aria-expanded`, etc.) where required
+- [ ] ensure keyboard operability (Enter, Space, Escape, focus trap if modal)
+- [ ] apply visible focus ring via `focus-visible:ring-*` utilities
+- [ ] ensure touch targets ≥ 44 × 44 px for interactive elements
+- [ ] validate color contrast in light and dark themes
+- [ ] add live region announcements for non-obvious state changes
+- [ ] add translation keys to `KEEPUI_TRANSLATION_KEYS` if component has internal strings
+- [ ] add translation values for `en`, `es`, and `de` if keys were added
+- [ ] register `TRANSLOCO_SCOPE` in component providers if transloco is used
 - [ ] address responsive behavior if applicable
 - [ ] review visual in light mode
 - [ ] review visual in dark mode
 - [ ] export in `public-api.ts`
-- [ ] add basic tests
+- [ ] add basic tests (including ARIA attribute assertions)
 
 ### Demo
 
@@ -358,6 +465,9 @@ Always use this checklist.
 - [ ] validate visual in light mode
 - [ ] validate visual in dark mode
 - [ ] adjust tests if the contract changed
+- [ ] verify ARIA attributes are still correct after the change
+- [ ] add or update translation keys if user-visible strings were added or changed
+- [ ] fill new translation values for `en`, `es`, and `de` if keys were modified
 
 ---
 
@@ -402,6 +512,12 @@ Do not do this:
 - introduce fragile internal imports from consumers
 - mix product business rules inside KeepUI
 - close a visual task without validating light and dark
+- suppress focus outlines without providing a visible alternative
+- use `tabindex` values greater than `0`
+- rely solely on color to convey meaning
+- hardcode UI strings inside component templates — use Transloco keys
+- add a new user-visible string without adding its translation in `en`, `es`, and `de`
+- skip ARIA attributes on interactive elements that lack visible labels
 
 ---
 
@@ -416,6 +532,9 @@ A component-related task is done only if:
 5. it is validated in light theme
 6. it is validated in dark theme
 7. its minimum tests are covered if applicable
+8. all interactive elements are keyboard-operable with visible focus
+9. required ARIA attributes are present and correct
+10. every internal user-visible string has translation values in `en`, `es`, and `de`
 
 ---
 
@@ -428,6 +547,8 @@ Whenever you add, replace, or refactor a KeepUI component:
 - keep Tailwind as the style base
 - preserve the separation between core and Capacitor
 - do not close the task without leaving functional evidence in the demo
+- apply ARIA attributes for every interactive state (loading, disabled, expanded, invalid…)
+- add translation keys for every internal user-visible string and fill them in `en`, `es`, and `de`
 
 When in doubt between speed and consistency, prioritize consistency.
 

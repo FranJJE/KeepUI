@@ -51,7 +51,7 @@ Provides:
 - Light theme CSS custom properties (default)
 - Dark theme via `[data-theme="dark"]`
 - Auto dark via `@media (prefers-color-scheme: dark)`
-- Tailwind v4 `@theme inline` mappings for all `bg-keepui-*`, `text-keepui-*`, `border-keepui-*`, `shadow-keepui-*` utilities
+- Tailwind v4 `@theme inline` mappings for all `bg-ku-*`, `text-ku-*`, `border-ku-*` utilities
 
 #### Theme switching at runtime
 
@@ -183,13 +183,17 @@ Works identically on **web** and **Angular + Capacitor** (no native API usage).
 | Input | Type | Default | Description |
 |---|---|---|---|
 | `variant` | `ButtonVariant` | `'primary'` | Visual style of the button. |
-| `size` | `ButtonSize` | `'md'` | Size mode. - `md` → fixed 160 px wide, 40 px tall. - `auto` → padding-driven width, 40 px tall. |
+| `size` | `ButtonSize` | `'md'` | Size mode.
+ - `md` → fixed 160 px wide, 40 px tall.
+ - `auto` → padding-driven width, 40 px tall. |
 | `shape` | `ButtonShape` | `'pill'` | Border-radius style. |
 | `type` | `ButtonType` | `'button'` | HTML `type` attribute of the inner `<button>`. |
 | `disabled` | `boolean` | `false` | Disables the button when `true`. |
-| `loading` | `boolean` | `false` | Replaces the content with an animated spinner and sets `aria-busy`. Also disables the button until the operation completes. |
+| `loading` | `boolean` | `false` | Replaces the content with an animated spinner and sets `aria-busy`.
+ Also disables the button until the operation completes. |
 | `fullWidth` | `boolean` | `false` | Expands the button to fill its container width. |
-| `ariaLabel` | `string` | `''` | Accessible label for icon-only buttons. When provided, sets the `aria-label` attribute on the inner `<button>`. |
+| `ariaLabel` | `string` | `''` | Accessible label for icon-only buttons.
+ When provided, sets the `aria-label` attribute on the inner `<button>`. |
 
 #### Outputs
 
@@ -211,24 +215,73 @@ Works identically on **web** and **Angular + Capacitor** (no native API usage).
 **Selector:** `keepui-card`
 **Import:** `import { CardComponent } from '@keepui/ui';`
 
-A versatile card container component.
+Versatile card container with support for variant, padding, surface colour,
+clickable state, selected state, scrollable mode and full-height layout.
+Accepts any content via `<ng-content>` and adapts to the active theme automatically.
+
+#### The `screen` padding — automatic bottom spacer
+
+`padding="screen"` applies horizontal and top padding but intentionally omits
+the bottom padding so that content appears to continue beyond the visible area,
+inviting the user to scroll. A hidden spacer element is automatically appended
+after all projected content: when the user reaches the bottom of the scroll the
+correct visual gap is shown **without any manual `padding-bottom` on the
+projected content**.
 
 ```html
+<!-- Basic usage -->
 <keepui-card>
   <h2>Title</h2>
   <p>Some content</p>
 </keepui-card>
 
-<keepui-card [elevation]="2">
-  Elevated card
+<!-- Flat card, large padding, clickable -->
+<keepui-card variant="flat" padding="lg" [clickable]="true" (clicked)="onSelect()">
+  Clickable flat card
 </keepui-card>
+
+<!-- Selected state (brand-colour border) -->
+<keepui-card [clickable]="true" [selected]="isSelected" (clicked)="isSelected = true">
+  Select me
+</keepui-card>
+
+<!-- Scrollable panel — bottom padding handled automatically -->
+<div class="h-screen overflow-hidden">
+  <keepui-card padding="screen" [scrollable]="true" [fullHeight]="true">
+    <!-- Long content list — no padding-bottom needed -->
+    @for (item of items; track item) {
+      <div class="py-3 border-b border-ku-secondary-border">{{ item }}</div>
+    }
+  </keepui-card>
+</div>
+
+<!-- Secondary surface colour -->
+<keepui-card colors="secondary">Secondary surface</keepui-card>
 ```
 
 #### Inputs
 
 | Input | Type | Default | Description |
 |---|---|---|---|
-| `elevation` | `0 | 1 | 2 | 3` | `1` | Shadow elevation level (0–3). |
+| `variant` | `CardVariant` | `'outlined'` | `outlined` shows a subtle border; `flat` has no border. |
+| `padding` | `CardPadding` | `'md'` | Internal spacing. `screen` applies horizontal + top padding and auto-inserts a bottom spacer. |
+| `colors` | `CardColors` | `'primary'` | Background surface colour token. |
+| `clickable` | `boolean` | `false` | Enables hover, focus ring and button semantics (`role="button"`, `tabindex="0"`). |
+| `selected` | `boolean` | `false` | Renders a brand-colour border to indicate the selected state. |
+| `scrollable` | `boolean` | `false` | Activates `overflow-y-auto`. Pair with `fullHeight` for a constrained scroll area. |
+| `fullHeight` | `boolean` | `false` | Applies `h-full` to both the host element and the inner container. |
+
+#### Outputs
+
+| Output | Emitter type | Description |
+|---|---|---|
+| `clicked` | `OutputEmitterRef<void>` | Emitted on click or `Enter` / `Space` keydown when `clickable` is `true`. |
+
+#### Content slots (`ng-content`)
+
+| Slot | Description |
+|---|---|
+| *(default)* | Any projected content. |
 
 ---
 ### 5.3 `ImagePreviewComponent`
@@ -266,6 +319,8 @@ Prerequisites — register providers in `app.config.ts`:
 
 ## 6. Type definitions
 
+### Button types
+
 > Visual style variant of the button.
 
 ```ts
@@ -292,6 +347,37 @@ type ButtonShape = 'pill' | 'rounded';
 
 ```ts
 type ButtonType = 'button' | 'submit' | 'reset';
+```
+
+### Card types
+
+> Visual border style of the card.
+- `outlined`: subtle border using the secondary border token.
+- `flat`: no border.
+
+```ts
+type CardVariant = 'flat' | 'outlined';
+```
+
+> Internal padding preset.
+- `none`: no padding.
+- `sm`: 12 px all sides.
+- `md`: 16 px all sides (default).
+- `lg`: 24 px all sides.
+- `screen`: 16 px horizontal + 16 px top, no bottom. A spacer element is
+  automatically appended so the bottom gap appears when the user scrolls
+  to the end — no manual `padding-bottom` required on the projected content.
+
+```ts
+type CardPadding = 'none' | 'sm' | 'md' | 'lg' | 'screen';
+```
+
+> Background surface colour.
+- `primary`: maps to `--ku-primary`.
+- `secondary`: maps to `--ku-secondary`.
+
+```ts
+type CardColors = 'primary' | 'secondary';
 ```
 
 ---
@@ -413,68 +499,133 @@ lang.setLanguage('es');  // 'en' | 'es' | 'de'
 
 ## 10. CSS design tokens
 
-Override any variable in your CSS to customise the theme:
+All tokens follow the `--ku-*` naming convention and are defined in
+`@keepui/ui/styles`. Override any variable in your CSS to customise the theme.
+
+### Surface tokens
 
 ```css
 :root {
-  --keepui-primary:            #3b82f6;
-  --keepui-primary-hover:      #2563eb;
-  --keepui-primary-active:     #1d4ed8;
-  --keepui-primary-foreground: #ffffff;
-  --keepui-background:         #f5f5f5;
-  --keepui-surface:            #ffffff;
-  --keepui-surface-hover:      #f0f0f0;
-  --keepui-border:             #e0e0e0;
-  --keepui-border-strong:      #cccccc;
-  --keepui-text:               #1f2937;
-  --keepui-text-muted:         #6b7280;
-  --keepui-text-disabled:      #9ca3af;
-  --keepui-error:              #dc2626;
-  --keepui-error-foreground:   #ffffff;
-  --keepui-success:            #16a34a;
-  --keepui-warning:            #f59e0b;
-  --keepui-shadow-sm:          0 1px 3px rgba(0,0,0,.12);
-  --keepui-shadow-md:          0 3px 6px rgba(0,0,0,.15);
-  --keepui-shadow-lg:          0 6px 12px rgba(0,0,0,.18);
+  /* Primary surface (app background) */
+  --ku-primary:        #F9F9F9;
+  --ku-primary-hover:  #E2E3E8;
+  --ku-primary-text:   #171717;
+  --ku-primary-border: #E2E3E8;
+
+  /* Secondary surface (cards, panels) */
+  --ku-secondary:        #FFFFFF;
+  --ku-secondary-hover:  #F9F9F9;
+  --ku-secondary-text:   #171717;
+  --ku-secondary-border: #E2E3E8;
 }
 
 [data-theme="dark"] {
-  --keepui-primary:            #60a5fa;
-  --keepui-primary-foreground: #0f172a;
-  --keepui-background:         #0f172a;
-  --keepui-surface:            #1e293b;
-  --keepui-surface-hover:      #334155;
-  --keepui-border:             #334155;
-  --keepui-border-strong:      #475569;
-  --keepui-text:               #f1f5f9;
-  --keepui-text-muted:         #94a3b8;
-  --keepui-text-disabled:      #64748b;
-  --keepui-error:              #f87171;
-  --keepui-error-foreground:   #0f172a;
-  --keepui-success:            #4ade80;
-  --keepui-warning:            #fbbf24;
+  --ku-primary:        #050505;
+  --ku-primary-hover:  #2C2D31;
+  --ku-primary-text:   #FFFFFF;
+  --ku-primary-border: #2C2D31;
+
+  --ku-secondary:        #15161A;
+  --ku-secondary-hover:  #2C2D31;
+  --ku-secondary-text:   #FFFFFF;
+  --ku-secondary-border: #2C2D31;
 }
 ```
+
+### Semantic colour palette
+
+Each semantic colour exposes three tokens: `*-bg`, `*-border`, `*-text`.
+
+```css
+:root {
+  /* Gray */
+  --ku-gray-bg: #F5F5F5;   --ku-gray-border: #D5D7DA;   --ku-gray-text: #6B7280;
+
+  /* Brand (purple) */
+  --ku-brand-bg: #F9F5FF;  --ku-brand-border: #D6BBFB;  --ku-brand-text: #6941C6;
+
+  /* Indigo */
+  --ku-indigo-bg: #EEF4FF; --ku-indigo-border: #C7D7FE; --ku-indigo-text: #3538CD;
+
+  /* Blue */
+  --ku-blue-bg: #EFF8FF;   --ku-blue-border: #B2DDFF;   --ku-blue-text: #175CD3;
+
+  /* Pink */
+  --ku-pink-bg: #FDF2FA;   --ku-pink-border: #FCCEEE;   --ku-pink-text: #C11574;
+
+  /* Orange */
+  --ku-orange-bg: #FFF6ED; --ku-orange-border: #F9DBAF; --ku-orange-text: #B93815;
+
+  /* Yellow */
+  --ku-yellow-bg: #FEFBE8; --ku-yellow-border: #FEDF89; --ku-yellow-text: #A15C07;
+
+  /* Green */
+  --ku-green-bg: #ECFDF3;  --ku-green-border: #ABEFC6;  --ku-green-text: #067647;
+
+  /* Purple */
+  --ku-purple-bg: #F4F3FF; --ku-purple-border: #D9D6FE; --ku-purple-text: #5925DC;
+
+  /* Teal */
+  --ku-teal-bg: #F0FDFA;   --ku-teal-border: #99F6E4;   --ku-teal-text: #0F766E;
+
+  /* Red */
+  --ku-red-bg: #FFF1F2;    --ku-red-border: #FECDD3;    --ku-red-text: #B91C1C;
+}
+
+[data-theme="dark"] {
+  --ku-gray-bg: #1F2937;   --ku-gray-border: #4B5563;   --ku-gray-text: #9CA3AF;
+  --ku-brand-bg: #2E1065;  --ku-brand-border: #7C3AED;  --ku-brand-text: #C4B5FD;
+  --ku-indigo-bg: #1E1B4B; --ku-indigo-border: #4338CA; --ku-indigo-text: #A5B4FC;
+  --ku-blue-bg: #0C1D3E;   --ku-blue-border: #2563EB;   --ku-blue-text: #93C5FD;
+  --ku-pink-bg: #3D0B2F;   --ku-pink-border: #DB2777;   --ku-pink-text: #F9A8D4;
+  --ku-orange-bg: #2C1204; --ku-orange-border: #EA580C; --ku-orange-text: #FDBA74;
+  --ku-yellow-bg: #2C1F02; --ku-yellow-border: #CA8A04; --ku-yellow-text: #FDE047;
+  --ku-green-bg: #052E16;  --ku-green-border: #16A34A;  --ku-green-text: #4ADE80;
+  --ku-purple-bg: #1C1040; --ku-purple-border: #6D28D9; --ku-purple-text: #C4B5FD;
+  --ku-teal-bg: #042A28;   --ku-teal-border: #0D9488;   --ku-teal-text: #2DD4BF;
+  --ku-red-bg: #2D0B0B;    --ku-red-border: #DC2626;    --ku-red-text: #FCA5A5;
+}
+```
+
+> Auto dark mode is also supported via `@media (prefers-color-scheme: dark)` for
+> apps that do not set `[data-theme]` explicitly.
 
 ---
 
 ## 11. Tailwind utility classes
 
-Generated automatically after `@import "@keepui/ui/styles"` with Tailwind v4:
+Generated automatically after `@import "@keepui/ui/styles"` with Tailwind v4.
+All utilities use the `ku-` prefix and map directly to the CSS custom properties.
 
 ```
-bg-keepui-background      bg-keepui-surface        bg-keepui-surface-hover
-bg-keepui-primary         bg-keepui-primary-hover  bg-keepui-primary-active
-bg-keepui-error           bg-keepui-success        bg-keepui-warning
+/* Surface backgrounds */
+bg-ku-primary          bg-ku-primary-hover
+bg-ku-secondary        bg-ku-secondary-hover
 
-text-keepui-text          text-keepui-text-muted   text-keepui-text-disabled
-text-keepui-primary       text-keepui-primary-fg   text-keepui-error
+/* Text */
+text-ku-primary-text   text-ku-secondary-text
+text-ku-gray-text      text-ku-brand-text
 
-border-keepui-border      border-keepui-border-strong  border-keepui-primary
+/* Borders */
+border-ku-primary-border    border-ku-secondary-border
+border-ku-gray-border       border-ku-brand-border
 
-shadow-keepui-sm          shadow-keepui-md         shadow-keepui-lg
+/* Semantic colours — bg / border / text per colour */
+bg-ku-gray-bg    border-ku-gray-border    text-ku-gray-text
+bg-ku-brand-bg   border-ku-brand-border   text-ku-brand-text
+bg-ku-indigo-bg  border-ku-indigo-border  text-ku-indigo-text
+bg-ku-blue-bg    border-ku-blue-border    text-ku-blue-text
+bg-ku-pink-bg    border-ku-pink-border    text-ku-pink-text
+bg-ku-orange-bg  border-ku-orange-border  text-ku-orange-text
+bg-ku-yellow-bg  border-ku-yellow-border  text-ku-yellow-text
+bg-ku-green-bg   border-ku-green-border   text-ku-green-text
+bg-ku-purple-bg  border-ku-purple-border  text-ku-purple-text
+bg-ku-teal-bg    border-ku-teal-border    text-ku-teal-text
+bg-ku-red-bg     border-ku-red-border     text-ku-red-text
 
-focus-visible:ring-keepui-primary
+/* Focus rings */
+focus-visible:ring-ku-primary-border
+focus-visible:ring-ku-brand-border
 ```
 
 ---

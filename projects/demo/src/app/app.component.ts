@@ -19,7 +19,7 @@ interface NavGroup {
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   template: `
-    <div class="flex h-screen overflow-hidden bg-keepui-background text-keepui-text">
+    <div class="flex h-screen overflow-hidden bg-ku-primary text-ku-primary-text">
 
       <!-- ── Mobile backdrop ── -->
       @if (sidebarOpen()) {
@@ -37,17 +37,17 @@ interface NavGroup {
 
         <!-- Sidebar header -->
         <div class="flex items-center justify-between px-4 h-14 shrink-0
-                    border-b border-keepui-border">
+                    border-b border-ku-secondary-border">
           <div class="flex items-center gap-2">
             <span class="text-xl leading-none select-none">⬡</span>
             <span class="font-bold text-base tracking-tight">KeepUI</span>
-            <span class="text-xs text-keepui-text-muted font-normal">Demo</span>
+            <span class="text-xs text-ku-gray-text font-normal">Demo</span>
           </div>
           <!-- Close btn — visible only on mobile -->
           <button
             class="md:hidden w-8 h-8 flex items-center justify-center rounded
-                   text-keepui-text-muted hover:bg-keepui-surface-hover
-                   hover:text-keepui-text transition-colors"
+                   text-ku-gray-text hover:bg-ku-secondary-hover
+                   hover:text-ku-primary-text transition-colors"
             (click)="closeSidebar()"
             aria-label="Cerrar menú"
           >✕</button>
@@ -57,17 +57,17 @@ interface NavGroup {
         <nav class="flex-1 overflow-y-auto p-3" aria-label="Navegación de componentes">
           @for (group of navGroups; track group.label) {
             <p class="text-xs font-semibold uppercase tracking-widest
-                      text-keepui-text-muted px-3 pb-1.5 mb-0 mt-4 first:mt-1.5">
+                      text-ku-gray-text px-3 pb-1.5 mb-0 mt-4 first:mt-1.5">
               {{ group.label }}
             </p>
             @for (item of group.items; track item.path) {
               <a
                 [routerLink]="item.path"
-                routerLinkActive="!bg-keepui-primary !text-keepui-primary-fg"
+                routerLinkActive="!bg-ku-primary-hover !text-ku-primary-text"
                 [routerLinkActiveOptions]="{ exact: item.exact }"
                 class="flex items-center gap-2.5 px-3 py-2 rounded text-sm font-medium
                        transition-colors duration-150
-                       text-keepui-text hover:bg-keepui-surface-hover"
+                       text-ku-primary-text hover:bg-ku-secondary-hover"
                 (click)="closeSidebar()"
               >
                 <span class="text-base leading-none">{{ item.icon }}</span>
@@ -78,11 +78,11 @@ interface NavGroup {
         </nav>
 
         <!-- Footer: language selector + theme toggle -->
-        <div class="p-4 shrink-0 border-t border-keepui-border flex flex-col gap-2">
+        <div class="p-4 shrink-0 border-t border-ku-secondary-border flex flex-col gap-2">
 
           <!-- Language selector -->
           <div class="flex items-center gap-1" role="group" aria-label="Idioma de KeepUI">
-            <span class="text-xs text-keepui-text-muted mr-1">🌐</span>
+            <span class="text-xs text-ku-gray-text mr-1">🌐</span>
             @for (lang of availableLangs; track lang) {
               <button
                 (click)="setLanguage(lang)"
@@ -95,8 +95,8 @@ interface NavGroup {
           <!-- Theme toggle -->
           <button
             class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded text-sm
-                   border border-keepui-border bg-keepui-surface text-keepui-text
-                   hover:bg-keepui-surface-hover transition-colors duration-150"
+                   border border-ku-secondary-border bg-ku-secondary text-ku-secondary-text
+                   hover:bg-ku-secondary-hover transition-colors duration-150"
             (click)="toggleTheme()"
             aria-label="Cambiar tema"
           >
@@ -114,11 +114,11 @@ interface NavGroup {
         <!-- Mobile top header (hidden on md+) -->
         <header
           class="md:hidden flex items-center justify-between px-3 h-14 shrink-0
-                 border-b border-keepui-border bg-keepui-surface"
+                 border-b border-ku-secondary-border bg-ku-secondary"
         >
           <button
             class="w-9 h-9 flex items-center justify-center rounded
-                   text-keepui-text hover:bg-keepui-surface-hover transition-colors"
+                   text-ku-primary-text hover:bg-ku-secondary-hover transition-colors"
             (click)="openSidebar()"
             aria-label="Abrir menú"
           >
@@ -132,7 +132,7 @@ interface NavGroup {
 
           <button
             class="w-9 h-9 flex items-center justify-center rounded
-                   text-keepui-text hover:bg-keepui-surface-hover transition-colors"
+                   text-ku-primary-text hover:bg-ku-secondary-hover transition-colors"
             (click)="toggleTheme()"
             aria-label="Cambiar tema"
           >
@@ -181,13 +181,10 @@ export class AppComponent {
   /** Clases del sidebar: fixed drawer en mobile, in-flow en desktop. */
   readonly sidebarClass = computed(() =>
     [
-      // Estructura
       'flex flex-col w-64 shrink-0',
-      'bg-keepui-surface border-r border-keepui-border',
-      // Mobile: drawer fixed fuera de pantalla
+      'bg-ku-secondary border-r border-ku-secondary-border',
       'fixed md:static inset-y-0 left-0 md:inset-auto',
       'z-40 md:z-auto',
-      // Animación de apertura/cierre
       'transition-transform duration-300 ease-in-out',
       this.sidebarOpen() ? 'translate-x-0' : '-translate-x-full md:translate-x-0',
     ].join(' '),
@@ -198,8 +195,8 @@ export class AppComponent {
     const base =
       'flex-1 py-1 rounded text-xs font-semibold transition-colors duration-150';
     return this.activeLang() === lang
-      ? `${base} bg-keepui-primary text-keepui-primary-fg`
-      : `${base} border border-keepui-border text-keepui-text-muted hover:bg-keepui-surface-hover`;
+      ? `${base} bg-ku-primary-hover text-ku-primary-text`
+      : `${base} border border-ku-secondary-border text-ku-gray-text hover:bg-ku-secondary-hover`;
   }
 
   setLanguage(lang: KeepUiLanguage): void {

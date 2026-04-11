@@ -1,130 +1,214 @@
-/*
- * KeepUI — Default Theme
- *
- * This file defines all the CSS custom properties (design tokens) used by
- * KeepUI components.  Import it once in your application's global stylesheet:
- *
- *   @import "@keepui/ui/styles/themes.css";
- *
- * ─── How to customise ───────────────────────────────────────────────────
- *
- * Override any variable in your own CSS to create a custom theme:
- *
- *   :root {
- *     --keepui-primary:   #6366f1;
- *     --keepui-primary-hover: #4f46e5;
- *   }
- *
- *   [data-theme="dark"] {
- *     --keepui-primary:   #818cf8;
- *     --keepui-primary-hover: #a5b4fc;
- *   }
- *
- * ─── Switching themes at runtime ────────────────────────────────────────
- *
- * Add `data-theme="dark"` to <html> or any ancestor element:
- *
- *   document.documentElement.setAttribute('data-theme', 'dark');
- *
- * Or rely on the user's OS preference — the defaults already include
- * a `@media (prefers-color-scheme: dark)` block.
- * ────────────────────────────────────────────────────────────────────────
- */
-
 /* ===== LIGHT THEME (default) ===== */
 :root {
-  /* ── Brand ── */
-  --keepui-primary:            #3b82f6;
-  --keepui-primary-hover:      #2563eb;
-  --keepui-primary-active:     #1d4ed8;
-  --keepui-primary-foreground:  #ffffff;
+  --ku-primary: #F9F9F9;
+  --ku-primary-hover: #E2E3E8;
+  --ku-primary-text: #171717;
+  --ku-primary-border: #E2E3E8;
 
-  /* ── Surfaces ── */
-  --keepui-background:         #f5f5f5;
-  --keepui-surface:            #ffffff;
-  --keepui-surface-hover:      #f0f0f0;
+  --ku-secondary: #FFFFFF;
+  --ku-secondary-hover: #F9F9F9;
+  --ku-secondary-text: #171717;
+  --ku-secondary-border: #E2E3E8;
 
-  /* ── Borders ── */
-  --keepui-border:             #e0e0e0;
-  --keepui-border-strong:      #cccccc;
+  --ku-gray-bg: #F5F5F5;
+  --ku-gray-border: #D5D7DA;
+  --ku-gray-text: #6B7280;
 
-  /* ── Text ── */
-  --keepui-text:               #1f2937;
-  --keepui-text-muted:         #6b7280;
-  --keepui-text-disabled:      #9ca3af;
+  --ku-brand-bg: #F9F5FF;
+  --ku-brand-border: #D6BBFB;
+  --ku-brand-text: #6941C6;
 
-  /* ── Feedback ── */
-  --keepui-error:              #dc2626;
-  --keepui-error-foreground:   #ffffff;
-  --keepui-success:            #16a34a;
-  --keepui-warning:            #f59e0b;
+  --ku-indigo-bg: #EEF4FF;
+  --ku-indigo-border: #C7D7FE;
+  --ku-indigo-text: #3538CD;
 
-  /* ── Misc ── */
-  --keepui-radius:             0.5rem;
-  --keepui-radius-sm:          0.25rem;
-  --keepui-shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.12);
-  --keepui-shadow-md:          0 3px 6px rgba(0, 0, 0, 0.15);
-  --keepui-shadow-lg:          0 6px 12px rgba(0, 0, 0, 0.18);
-  --keepui-transition:         0.2s ease;
-  --keepui-disabled-opacity:   0.5;
-  --keepui-font-family:        system-ui, -apple-system, sans-serif;
+  --ku-blue-bg: #EFF8FF;
+  --ku-blue-border: #B2DDFF;
+  --ku-blue-text: #175CD3;
+
+  --ku-pink-bg: #FDF2FA;
+  --ku-pink-border: #FCCEEE;
+  --ku-pink-text: #C11574;
+
+  --ku-orange-bg: #FFF6ED;
+  --ku-orange-border: #F9DBAF;
+  --ku-orange-text: #B93815;
+
+  --ku-yellow-bg: #FEFBE8;
+  --ku-yellow-border: #FEDF89;
+  --ku-yellow-text: #A15C07;
+
+  --ku-green-bg: #ECFDF3;
+  --ku-green-border: #ABEFC6;
+  --ku-green-text: #067647;
+
+  --ku-purple-bg: #F4F3FF;
+  --ku-purple-border: #D9D6FE;
+  --ku-purple-text: #5925DC;
+
+  --ku-teal-bg: #F0FDFA;
+  --ku-teal-border: #99F6E4;
+  --ku-teal-text: #0F766E;
+
+  --ku-red-bg: #FFF1F2;
+  --ku-red-border: #FECDD3;
+  --ku-red-text: #B91C1C;
+
 }
 
 /* ===== DARK THEME ===== */
-[data-theme="dark"] {
-  --keepui-primary:            #60a5fa;
-  --keepui-primary-hover:      #93c5fd;
-  --keepui-primary-active:     #3b82f6;
-  --keepui-primary-foreground:  #0f172a;
+[data-theme="dark"],
+.dark {
+  --ku-primary: #050505;
+  --ku-primary-hover: #2C2D31;
+  --ku-primary-text: #FFFFFF;
+  --ku-primary-border: #2C2D31;
 
-  --keepui-background:         #0f172a;
-  --keepui-surface:            #1e293b;
-  --keepui-surface-hover:      #334155;
+  --ku-secondary: #15161A;
+  --ku-secondary-hover: #2C2D31;
+  --ku-secondary-text: #FFFFFF;
+  --ku-secondary-border: #2C2D31;
 
-  --keepui-border:             #334155;
-  --keepui-border-strong:      #475569;
+  --ku-gray-bg: #1F2937;
+  --ku-gray-border: #4B5563;
+  --ku-gray-text: #9CA3AF;
 
-  --keepui-text:               #f1f5f9;
-  --keepui-text-muted:         #94a3b8;
-  --keepui-text-disabled:      #64748b;
+  --ku-brand-bg: #2E1065;
+  --ku-brand-border: #7C3AED;
+  --ku-brand-text: #C4B5FD;
 
-  --keepui-error:              #f87171;
-  --keepui-error-foreground:   #0f172a;
-  --keepui-success:            #4ade80;
-  --keepui-warning:            #fbbf24;
+  --ku-indigo-bg: #1E1B4B;
+  --ku-indigo-border: #4338CA;
+  --ku-indigo-text: #A5B4FC;
 
-  --keepui-shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.4);
-  --keepui-shadow-md:          0 3px 6px rgba(0, 0, 0, 0.45);
-  --keepui-shadow-lg:          0 6px 12px rgba(0, 0, 0, 0.5);
+  --ku-blue-bg: #0C1D3E;
+  --ku-blue-border: #2563EB;
+  --ku-blue-text: #93C5FD;
+
+  --ku-pink-bg: #3D0B2F;
+  --ku-pink-border: #DB2777;
+  --ku-pink-text: #F9A8D4;
+
+  --ku-orange-bg: #2C1204;
+  --ku-orange-border: #EA580C;
+  --ku-orange-text: #FDBA74;
+
+  --ku-yellow-bg: #2C1F02;
+  --ku-yellow-border: #CA8A04;
+  --ku-yellow-text: #FDE047;
+
+  --ku-green-bg: #052E16;
+  --ku-green-border: #16A34A;
+  --ku-green-text: #4ADE80;
+
+  --ku-purple-bg: #1C1040;
+  --ku-purple-border: #6D28D9;
+  --ku-purple-text: #C4B5FD;
+
+  --ku-teal-bg: #042A28;
+  --ku-teal-border: #0D9488;
+  --ku-teal-text: #2DD4BF;
+
+  --ku-red-bg: #2D0B0B;
+  --ku-red-border: #DC2626;
+  --ku-red-text: #FCA5A5;
+
+  /* =====================================================
+    SPACING
+    ===================================================== */
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+
+  /* =====================================================
+     BORDER RADIUS
+     ===================================================== */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* =====================================================
+     BOX SHADOW
+     ===================================================== */
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow: 1px 1px 12px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  /* =====================================================
+     Z-INDEX
+     ===================================================== */
+
+  --z-index-base: 0;
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
 }
 
 /* ===== Auto dark (OS preference) ===== */
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --keepui-primary:            #60a5fa;
-    --keepui-primary-hover:      #93c5fd;
-    --keepui-primary-active:     #3b82f6;
-    --keepui-primary-foreground:  #0f172a;
+  :root:not([data-theme="light"]):not(.light) {
+    /* ── Semantic color palette (dark) ── */
+    --ku-gray-bg: #1F2937;
+    --ku-gray-border: #4B5563;
+    --ku-gray-text: #9CA3AF;
 
-    --keepui-background:         #0f172a;
-    --keepui-surface:            #1e293b;
-    --keepui-surface-hover:      #334155;
+    --ku-brand-bg: #2E1065;
+    --ku-brand-border: #7C3AED;
+    --ku-brand-text: #C4B5FD;
 
-    --keepui-border:             #334155;
-    --keepui-border-strong:      #475569;
+    --ku-indigo-bg: #1E1B4B;
+    --ku-indigo-border: #4338CA;
+    --ku-indigo-text: #A5B4FC;
 
-    --keepui-text:               #f1f5f9;
-    --keepui-text-muted:         #94a3b8;
-    --keepui-text-disabled:      #64748b;
+    --ku-blue-bg: #0C1D3E;
+    --ku-blue-border: #2563EB;
+    --ku-blue-text: #93C5FD;
 
-    --keepui-error:              #f87171;
-    --keepui-error-foreground:   #0f172a;
-    --keepui-success:            #4ade80;
-    --keepui-warning:            #fbbf24;
+    --ku-pink-bg: #3D0B2F;
+    --ku-pink-border: #DB2777;
+    --ku-pink-text: #F9A8D4;
 
-    --keepui-shadow-sm:          0 1px 3px rgba(0, 0, 0, 0.4);
-    --keepui-shadow-md:          0 3px 6px rgba(0, 0, 0, 0.45);
-    --keepui-shadow-lg:          0 6px 12px rgba(0, 0, 0, 0.5);
+    --ku-orange-bg: #2C1204;
+    --ku-orange-border: #EA580C;
+    --ku-orange-text: #FDBA74;
+
+    --ku-yellow-bg: #2C1F02;
+    --ku-yellow-border: #CA8A04;
+    --ku-yellow-text: #FDE047;
+
+    --ku-green-bg: #052E16;
+    --ku-green-border: #16A34A;
+    --ku-green-text: #4ADE80;
+
+    --ku-purple-bg: #1C1040;
+    --ku-purple-border: #6D28D9;
+    --ku-purple-text: #C4B5FD;
+
+    --ku-teal-bg: #042A28;
+    --ku-teal-border: #0D9488;
+    --ku-teal-text: #2DD4BF;
+
+    --ku-red-bg: #2D0B0B;
+    --ku-red-border: #DC2626;
+    --ku-red-text: #FCA5A5;
   }
 }
 

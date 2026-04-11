@@ -9,7 +9,7 @@ interface NgAddOptions {
  * `ng add @keepui/ui` schematic.
  *
  * Installs the package and prints guidance on how to register
- * `provideKeepUi()` in the host application's `app.config.ts`.
+ * `provideKeepUi()` and import styles in the host application.
  */
 export function ngAdd(_options: NgAddOptions): Rule {
   return (tree: Tree, context: SchematicContext) => {
@@ -19,8 +19,20 @@ export function ngAdd(_options: NgAddOptions): Rule {
     context.logger.info('✅ KeepUI has been added to your project!');
     context.logger.info('');
     context.logger.info('Next steps:');
+    context.logger.info('');
     context.logger.info(
-      '  1. Open your app.config.ts and add provideKeepUi() to the providers array:',
+      '  1. Import KeepUI styles in your global CSS (after tailwindcss):',
+    );
+    context.logger.info('');
+    context.logger.info('     /* If your project uses Tailwind CSS v4: */');
+    context.logger.info("     @import \"tailwindcss\";");
+    context.logger.info("     @import \"@keepui/ui/styles\";");
+    context.logger.info('');
+    context.logger.info('     /* OR if your project does NOT use Tailwind: */');
+    context.logger.info("     @import \"@keepui/ui/styles/prebuilt.css\";");
+    context.logger.info('');
+    context.logger.info(
+      '  2. Open your app.config.ts and add provideKeepUi() to the providers array:',
     );
     context.logger.info('');
     context.logger.info("     import { provideKeepUi } from '@keepui/ui';");
@@ -29,11 +41,11 @@ export function ngAdd(_options: NgAddOptions): Rule {
     context.logger.info('       providers: [provideKeepUi()],');
     context.logger.info('     };');
     context.logger.info('');
-    context.logger.info('  2. Use KeepUI components in your templates:');
-    context.logger.info("     import { ImagePreviewComponent } from '@keepui/ui';");
+    context.logger.info('  3. Use KeepUI components in your templates:');
+    context.logger.info("     import { ButtonComponent } from '@keepui/ui';");
     context.logger.info('');
     context.logger.info(
-      '  3. For Capacitor projects, use provideKeepUiCapacitor() from @keepui/ui/capacitor instead.',
+      '  4. For Capacitor projects, use provideKeepUiCapacitor() from @keepui/ui/capacitor instead.',
     );
     context.logger.info('');
 

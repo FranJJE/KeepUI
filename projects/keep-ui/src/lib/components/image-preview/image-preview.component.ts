@@ -53,7 +53,7 @@ import { ButtonComponent } from '../button/button.component';
       @if (imageUrl()) {
         <div class="max-w-full">
           <img
-            class="max-w-full h-auto rounded border border-keepui-border"
+            class="max-w-full h-auto rounded border border-ku-secondary-border"
             [src]="imageUrl()"
             [attr.alt]="keys.PREVIEW_ALT | transloco"
           />
@@ -61,7 +61,7 @@ import { ButtonComponent } from '../button/button.component';
       }
 
       @if (error()) {
-        <p class="text-keepui-error text-sm m-0" role="alert">{{ error() }}</p>
+        <p class="text-ku-red-text text-sm m-0" role="alert">{{ error() }}</p>
       }
 
     </div>

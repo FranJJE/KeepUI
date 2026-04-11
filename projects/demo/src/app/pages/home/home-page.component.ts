@@ -19,7 +19,7 @@ interface ComponentCard {
       <!-- Hero -->
       <div class="mb-10">
         <h1 class="text-4xl font-bold mb-2 mt-0">KeepUI</h1>
-        <p class="text-lg text-keepui-text-muted leading-relaxed max-w-2xl m-0">
+        <p class="text-lg text-ku-gray-text leading-relaxed max-w-2xl m-0">
           Biblioteca de componentes Angular con soporte nativo para web y
           Angular&nbsp;+&nbsp;Capacitor. Diseñada para ser accesible, personalizable
           y compatible con temas claro y oscuro.
@@ -28,7 +28,7 @@ interface ComponentCard {
 
       <!-- Grid de componentes -->
       <section>
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mb-4 mt-0">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mb-4 mt-0">
           Componentes disponibles
         </h2>
 
@@ -37,27 +37,27 @@ interface ComponentCard {
             <a
               [routerLink]="comp.path"
               class="group flex flex-col gap-3 p-5 rounded-lg border no-underline
-                     bg-keepui-surface border-keepui-border text-keepui-text
-                     hover:border-keepui-primary hover:shadow-keepui-sm
+                     bg-ku-secondary border-ku-secondary-border text-ku-secondary-text
+                     hover:border-ku-primary-border hover:shadow-sm
                      transition-all duration-200"
             >
               <div class="flex items-start justify-between gap-2">
                 <span class="text-3xl leading-none">{{ comp.icon }}</span>
                 <code class="text-xs px-2 py-0.5 rounded shrink-0
-                             bg-keepui-background border border-keepui-border
-                             text-keepui-text-muted">
+                             bg-ku-primary border border-ku-primary-border
+                             text-ku-gray-text">
                   {{ comp.tag }}
                 </code>
               </div>
 
               <div class="flex-1">
                 <h3 class="font-semibold text-base mt-0 mb-1">{{ comp.name }}</h3>
-                <p class="text-sm text-keepui-text-muted m-0 leading-relaxed">
+                <p class="text-sm text-ku-gray-text m-0 leading-relaxed">
                   {{ comp.description }}
                 </p>
               </div>
 
-              <span class="text-xs font-semibold text-keepui-primary
+              <span class="text-xs font-semibold text-ku-brand-text
                            inline-flex items-center gap-1
                            group-hover:gap-2 transition-all duration-150">
                 Ver componente <span>→</span>
@@ -68,23 +68,23 @@ interface ComponentCard {
       </section>
 
       <!-- Info de temas -->
-      <section class="mt-10 rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mb-3 mt-0">
+      <section class="mt-10 rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mb-3 mt-0">
           Personalización de temas
         </h2>
-        <p class="text-sm text-keepui-text-muted mb-3">
+        <p class="text-sm text-ku-gray-text mb-3">
           Todos los colores se pueden sobreescribir con CSS custom properties en tu proyecto:
         </p>
         <pre class="text-xs rounded-md p-4 overflow-x-auto m-0
-                    bg-keepui-background border border-keepui-border"><code>:root {{ '{' }}
-  --keepui-primary:       #6366f1;
-  --keepui-primary-hover: #4f46e5;
-  --keepui-surface:       #fefce8;
+                    bg-ku-primary border border-ku-primary-border"><code>:root {{ '{' }}
+  --ku-primary:       #f0f4ff;
+  --ku-primary-hover: #e0e8ff;
+  --ku-secondary:     #fefce8;
 {{ '}' }}
 
 [data-theme="dark"] {{ '{' }}
-  --keepui-primary:       #818cf8;
-  --keepui-background:    #1a1a2e;
+  --ku-primary:       #0f172a;
+  --ku-secondary:     #1e293b;
 {{ '}' }}</code></pre>
       </section>
 

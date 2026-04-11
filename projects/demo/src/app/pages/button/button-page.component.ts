@@ -17,20 +17,20 @@ interface ApiRow {
 
       <!-- Page header -->
       <div>
-        <p class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mb-1 mt-0">
+        <p class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mb-1 mt-0">
           Componente
         </p>
         <h1 class="text-3xl font-bold mt-0 mb-2">Button</h1>
-        <p class="text-keepui-text-muted leading-relaxed mb-3">
+        <p class="text-ku-gray-text leading-relaxed mb-3">
           Botón accesible con soporte de variantes, formas, tamaños, estado de carga,
           ancho completo, iconos vía slots y atributos ARIA. Compatible con web y
           Angular&nbsp;+&nbsp;Capacitor sin ninguna dependencia nativa.
         </p>
-        <code class="text-sm text-keepui-primary">&lt;keepui-button&gt;</code>
+        <code class="text-sm text-ku-brand-text">&lt;keepui-button&gt;</code>
       </div>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-4">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-4">
           Variantes
         </h2>
         <div class="flex flex-wrap gap-3 items-center">
@@ -40,13 +40,13 @@ interface ApiRow {
           <keepui-button variant="ghost" size="auto" (clicked)="onClicked('ghost')">Ghost</keepui-button>
           <keepui-button variant="danger" size="auto" (clicked)="onClicked('danger')">Danger</keepui-button>
         </div>
-        <p class="mt-4 mb-0 text-sm text-keepui-text-muted">
-          Último click: <strong class="text-keepui-text">{{ lastClicked() }}</strong>
+        <p class="mt-4 mb-0 text-sm text-ku-gray-text">
+          Último click: <strong class="text-ku-primary-text">{{ lastClicked() }}</strong>
         </p>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-4">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-4">
           Formas
         </h2>
         <div class="flex flex-wrap gap-3 items-center">
@@ -57,8 +57,8 @@ interface ApiRow {
         </div>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-4">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-4">
           Tamaños
         </h2>
         <div class="flex flex-wrap gap-3 items-center">
@@ -67,13 +67,13 @@ interface ApiRow {
         </div>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-1">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-1">
           Estado de carga
         </h2>
-        <p class="text-sm text-keepui-text-muted mt-0 mb-4">
-          Cuando <code class="text-keepui-primary">loading=true</code> el botón se deshabilita,
-          muestra un spinner animado y expone <code class="text-keepui-primary">aria-busy="true"</code>.
+        <p class="text-sm text-ku-gray-text mt-0 mb-4">
+          Cuando <code class="text-ku-brand-text">loading=true</code> el botón se deshabilita,
+          muestra un spinner animado y expone <code class="text-ku-brand-text">aria-busy="true"</code>.
         </p>
         <div class="flex flex-wrap gap-3 items-center mb-4">
           @for (v of variants; track v) {
@@ -90,8 +90,8 @@ interface ApiRow {
         </keepui-button>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-4">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-4">
           Ancho completo
         </h2>
         <div class="flex flex-col gap-3">
@@ -100,13 +100,13 @@ interface ApiRow {
         </div>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-1">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-1">
           Con iconos (slots)
         </h2>
-        <p class="text-sm text-keepui-text-muted mt-0 mb-4">
-          Usa los atributos <code class="text-keepui-primary">slot="leading"</code> y
-          <code class="text-keepui-primary">slot="trailing"</code> para colocar iconos inline.
+        <p class="text-sm text-ku-gray-text mt-0 mb-4">
+          Usa los atributos <code class="text-ku-brand-text">slot="leading"</code> y
+          <code class="text-ku-brand-text">slot="trailing"</code> para colocar iconos inline.
         </p>
         <div class="flex flex-wrap gap-3 items-center">
           <keepui-button variant="primary" size="auto">
@@ -161,8 +161,8 @@ interface ApiRow {
         </div>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-4">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-4">
           Estado deshabilitado
         </h2>
         <div class="flex flex-wrap gap-3 items-center mb-4">
@@ -185,8 +185,8 @@ interface ApiRow {
         </div>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-4">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-4">
           Tipos HTML
         </h2>
         <div class="flex flex-wrap gap-3">
@@ -196,29 +196,29 @@ interface ApiRow {
         </div>
       </section>
 
-      <section class="rounded-lg border bg-keepui-surface border-keepui-border p-6">
-        <h2 class="text-xs font-semibold uppercase tracking-widest text-keepui-text-muted mt-0 mb-4">
+      <section class="rounded-lg border bg-ku-secondary border-ku-secondary-border p-6">
+        <h2 class="text-xs font-semibold uppercase tracking-widest text-ku-gray-text mt-0 mb-4">
           API
         </h2>
         <div class="overflow-x-auto -mx-2">
           <table class="w-full text-sm text-left border-collapse min-w-max">
             <thead>
-              <tr class="border-b border-keepui-border">
-                <th class="py-2 px-2 font-semibold text-keepui-text-muted">Propiedad</th>
-                <th class="py-2 px-2 font-semibold text-keepui-text-muted">Tipo</th>
-                <th class="py-2 px-2 font-semibold text-keepui-text-muted">Default</th>
-                <th class="py-2 px-2 font-semibold text-keepui-text-muted">Descripción</th>
+              <tr class="border-b border-ku-secondary-border">
+                <th class="py-2 px-2 font-semibold text-ku-gray-text">Propiedad</th>
+                <th class="py-2 px-2 font-semibold text-ku-gray-text">Tipo</th>
+                <th class="py-2 px-2 font-semibold text-ku-gray-text">Default</th>
+                <th class="py-2 px-2 font-semibold text-ku-gray-text">Descripción</th>
               </tr>
             </thead>
             <tbody>
               @for (row of apiRows; track row.name) {
-                <tr class="border-b border-keepui-border last:border-0">
+                <tr class="border-b border-ku-secondary-border last:border-0">
                   <td class="py-2 px-2">
-                    <code class="text-keepui-primary">{{ row.name }}</code>
+                    <code class="text-ku-brand-text">{{ row.name }}</code>
                   </td>
-                  <td class="py-2 px-2 font-mono text-xs text-keepui-text-muted">{{ row.type }}</td>
-                  <td class="py-2 px-2 font-mono text-xs text-keepui-text-muted">{{ row.default }}</td>
-                  <td class="py-2 px-2 text-xs text-keepui-text-muted">{{ row.description }}</td>
+                  <td class="py-2 px-2 font-mono text-xs text-ku-gray-text">{{ row.type }}</td>
+                  <td class="py-2 px-2 font-mono text-xs text-ku-gray-text">{{ row.default }}</td>
+                  <td class="py-2 px-2 text-xs text-ku-gray-text">{{ row.description }}</td>
                 </tr>
               }
             </tbody>

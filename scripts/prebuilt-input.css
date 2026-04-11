@@ -1,0 +1,81 @@
+/*
+ * KeepUI — Prebuilt styles input  (BUILD-TIME ONLY — not shipped to npm)
+ *
+ * This file is processed by the Tailwind CLI at library build time to generate
+ * `dist/keep-ui/styles/prebuilt.css` — a standalone CSS file that includes
+ * all Tailwind utilities used by KeepUI components.
+ *
+ * Consumers who do NOT use Tailwind in their own project can import:
+ *
+ *   @import "@keepui/ui/styles/prebuilt.css";
+ *
+ * instead of:
+ *
+ *   @import "@keepui/ui/styles";
+ *
+ * Run via:  npm run build:styles
+ */
+
+@import "tailwindcss";
+
+/* Scan the FESM bundle to detect all Tailwind classes used by the library */
+@source "../dist/keep-ui/fesm2022/keepui-ui.mjs";
+
+/* Design tokens — single source of truth */
+@import "../projects/keep-ui/src/lib/styles/themes.css";
+
+@theme inline {
+  --color-ku-primary: var(--ku-primary);
+  --color-ku-primary-hover: var(--ku-primary-hover);
+  --color-ku-primary-text: var(--ku-primary-text);
+  --color-ku-primary-border: var(--ku-primary-border);
+
+  --color-ku-secondary: var(--ku-secondary);
+  --color-ku-secondary-hover: var(--ku-secondary-hover);
+  --color-ku-secondary-text: var(--ku-secondary-text);
+  --color-ku-secondary-border: var(--ku-secondary-border);
+
+  --color-ku-gray-bg: var(--ku-gray-bg);
+  --color-ku-gray-border: var(--ku-gray-border);
+  --color-ku-gray-text: var(--ku-gray-text);
+
+  --color-ku-brand-bg: var(--ku-brand-bg);
+  --color-ku-brand-border: var(--ku-brand-border);
+  --color-ku-brand-text: var(--ku-brand-text);
+
+  --color-ku-indigo-bg: var(--ku-indigo-bg);
+  --color-ku-indigo-border: var(--ku-indigo-border);
+  --color-ku-indigo-text: var(--ku-indigo-text);
+
+  --color-ku-blue-bg: var(--ku-blue-bg);
+  --color-ku-blue-border: var(--ku-blue-border);
+  --color-ku-blue-text: var(--ku-blue-text);
+
+  --color-ku-pink-bg:       var(--ku-pink-bg);
+  --color-ku-pink-border:   var(--ku-pink-border);
+  --color-ku-pink-text:     var(--ku-pink-text);
+
+  --color-ku-orange-bg: var(--ku-orange-bg);
+  --color-ku-orange-border: var(--ku-orange-border);
+  --color-ku-orange-text: var(--ku-orange-text);
+
+  --color-ku-yellow-bg: var(--ku-yellow-bg);
+  --color-ku-yellow-border: var(--ku-yellow-border);
+  --color-ku-yellow-text: var(--ku-yellow-text);
+
+  --color-ku-green-bg: var(--ku-green-bg);
+  --color-ku-green-border: var(--ku-green-border);
+  --color-ku-green-text: var(--ku-green-text);
+
+  --color-ku-purple-bg: var(--ku-purple-bg);
+  --color-ku-purple-border: var(--ku-purple-border);
+  --color-ku-purple-text: var(--ku-purple-text);
+
+  --color-ku-teal-bg: var(--ku-teal-bg);
+  --color-ku-teal-border: var(--ku-teal-border);
+  --color-ku-teal-text: var(--ku-teal-text);
+
+  --color-ku-red-bg: var(--ku-red-bg);
+  --color-ku-red-border: var(--ku-red-border);
+  --color-ku-red-text: var(--ku-red-text);
+}

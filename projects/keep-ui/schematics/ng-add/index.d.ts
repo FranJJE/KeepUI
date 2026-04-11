@@ -6,7 +6,7 @@ interface NgAddOptions {
  * `ng add @keepui/ui` schematic.
  *
  * Installs the package and prints guidance on how to register
- * `provideKeepUi()` in the host application's `app.config.ts`.
+ * `provideKeepUi()` and import styles in the host application.
  */
 export declare function ngAdd(_options: NgAddOptions): Rule;
 export {};

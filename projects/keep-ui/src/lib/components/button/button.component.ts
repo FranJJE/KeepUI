@@ -129,7 +129,7 @@ export class ButtonComponent {
       'min-h-[2.75rem] text-sm font-medium cursor-pointer select-none',
       'transition-colors duration-200',
       'focus-visible:outline-none focus-visible:ring-2',
-      'focus-visible:ring-keepui-primary focus-visible:ring-offset-2',
+      'focus-visible:ring-ku-primary-border focus-visible:ring-offset-2',
       'disabled:opacity-50 disabled:cursor-not-allowed',
     ].join(' ');
 
@@ -146,25 +146,25 @@ export class ButtonComponent {
 
     const variantMap: Record<ButtonVariant, string> = {
       primary: [
-        'bg-keepui-primary text-keepui-primary-fg border border-keepui-primary',
-        'enabled:hover:bg-keepui-primary-hover enabled:hover:border-keepui-primary-hover',
-        'enabled:active:bg-keepui-primary-active enabled:active:border-keepui-primary-active',
+        'bg-ku-primary text-ku-primary-text border border-ku-primary-border',
+        'enabled:hover:bg-ku-primary-hover enabled:hover:border-ku-primary-border',
+        'enabled:active:bg-ku-primary-hover enabled:active:border-ku-primary-border',
       ].join(' '),
       secondary: [
-        'bg-keepui-surface text-keepui-text border border-keepui-border',
-        'enabled:hover:bg-keepui-surface-hover enabled:hover:border-keepui-border-strong',
-        'disabled:text-keepui-text-disabled',
+        'bg-ku-secondary text-ku-secondary-text border border-ku-secondary-border',
+        'enabled:hover:bg-ku-secondary-hover enabled:hover:border-ku-gray-border',
+        'disabled:text-ku-gray-text',
       ].join(' '),
       outline: [
-        'bg-transparent border border-keepui-border text-keepui-text',
-        'enabled:hover:border-keepui-primary enabled:hover:text-keepui-primary',
+        'bg-transparent border border-ku-secondary-border text-ku-secondary-text',
+        'enabled:hover:border-ku-primary-border enabled:hover:text-ku-brand-text',
       ].join(' '),
       ghost: [
-        'bg-transparent border border-keepui-primary text-keepui-primary',
-        'enabled:hover:bg-keepui-primary/10',
+        'bg-transparent border border-ku-primary-border text-ku-brand-text',
+        'enabled:hover:bg-ku-primary/10',
       ].join(' '),
       danger: [
-        'bg-keepui-error text-keepui-error-fg border border-keepui-error',
+        'bg-ku-red-bg text-ku-red-text border border-ku-red-border',
         'enabled:hover:opacity-90',
         'enabled:active:opacity-80',
       ].join(' '),

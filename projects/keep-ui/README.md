@@ -48,7 +48,27 @@ npx cap sync
 
 ## Usage — Angular Web App
 
-### 1. Register the web provider
+### 1. Import styles
+
+KeepUI components use CSS custom properties for theming. You **must** import the
+library styles in your global stylesheet.
+
+**If your project uses Tailwind CSS v4:**
+
+```css
+/* src/styles.css or src/tailwind.css */
+@import "tailwindcss";
+@import "@keepui/ui/styles";
+```
+
+**If your project does NOT use Tailwind:**
+
+```css
+/* src/styles.css */
+@import "@keepui/ui/styles/prebuilt.css";
+```
+
+### 2. Register the web provider
 
 ```ts
 // src/app/app.config.ts
@@ -63,7 +83,7 @@ export const appConfig: ApplicationConfig = {
 };
 ```
 
-### 2. Use components
+### 3. Use components
 
 ```ts
 // src/app/app.component.ts
@@ -98,7 +118,15 @@ export class AppComponent {
 
 ## Usage — Angular + Capacitor App
 
-### 1. Register the Capacitor provider
+### 1. Import styles (same as web)
+
+```css
+/* src/styles.css or src/tailwind.css */
+@import "tailwindcss";
+@import "@keepui/ui/styles";
+```
+
+### 2. Register the Capacitor provider
 
 ```ts
 // src/app/app.config.ts
@@ -254,6 +282,35 @@ npm publish --access public
 ```
 
 Ensure `package.json` has the correct `name`, `version`, and `peerDependencies` before publishing.
+
+---
+
+## Theming
+
+KeepUI uses CSS custom properties for all design tokens. Override any variable
+in your own CSS to create a custom theme:
+
+```css
+:root {
+  --keepui-primary:       #6366f1;
+  --keepui-primary-hover: #4f46e5;
+}
+
+[data-theme="dark"] {
+  --keepui-primary:       #818cf8;
+  --keepui-primary-hover: #a5b4fc;
+}
+```
+
+Switch themes at runtime:
+
+```ts
+document.documentElement.setAttribute('data-theme', 'dark');
+```
+
+The library also respects `prefers-color-scheme: dark` by default.
+
+See `themes.css` for the full list of available tokens.
 
 ---
 

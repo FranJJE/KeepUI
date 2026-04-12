@@ -18,6 +18,10 @@ export const KEEPUI_TRANSLATION_KEYS = {
     PREVIEW_ALT: 'imagePreview.previewAlt',
     ERROR_UNEXPECTED: 'imagePreview.errorUnexpected',
   },
+  SIGNAL_TEXT_INPUT: {
+    SHOW_PASSWORD: 'signalTextInput.showPassword',
+    HIDE_PASSWORD: 'signalTextInput.hidePassword',
+  },
 } as const;
 
 /** Union of all supported KeepUI locales. */

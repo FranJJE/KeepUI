@@ -15,8 +15,18 @@ export * from './lib/services/web-file.service';
 // Components
 export * from './lib/components/button/button.types';
 export * from './lib/components/button/button.component';
+export * from './lib/components/card/card.types';
 export * from './lib/components/card/card.component';
+export * from './lib/components/icon/icon.component';
+export * from './lib/components/icon-action-button/icon-action-button.types';
+export * from './lib/components/icon-action-button/icon-action-button.component';
 export * from './lib/components/image-preview/image-preview.component';
+export * from './lib/components/signal-dropdown/signal-dropdown.types';
+export * from './lib/components/signal-dropdown/signal-dropdown.component';
+export * from './lib/components/signal-text-input/signal-text-input.types';
+export * from './lib/components/signal-text-input/signal-text-input.component';
+export * from './lib/components/signal-textarea/signal-textarea.types';
+export * from './lib/components/signal-textarea/signal-textarea.component';
 
 // Providers
 export * from './lib/providers/provide-keep-ui';

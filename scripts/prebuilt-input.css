@@ -25,6 +25,15 @@
 @import "../projects/keep-ui/src/lib/styles/themes.css";
 
 @theme inline {
+  --color-ku-action-primary: var(--ku-action-primary);
+  --color-ku-action-background: var(--ku-action-background);
+  --color-ku-success-primary: var(--ku-success-primary);
+  --color-ku-success-background: var(--ku-success-background);
+  --color-ku-error-primary: var(--ku-error-primary);
+  --color-ku-error-background: var(--ku-error-background);
+  --color-ku-warning-primary: var(--ku-warning-primary);
+  --color-ku-warning-background: var(--ku-warning-background);
+
   --color-ku-primary: var(--ku-primary);
   --color-ku-primary-hover: var(--ku-primary-hover);
   --color-ku-primary-text: var(--ku-primary-text);

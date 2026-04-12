@@ -173,7 +173,12 @@ export class AppComponent {
       items: [
         { path: 'button', label: 'Button', icon: '🔘', exact: false },
         { path: 'card', label: 'Card', icon: '🃏', exact: false },
+        { path: 'icon', label: 'Icon', icon: '🔷', exact: false },
+        { path: 'icon-action-button', label: 'Icon Action Button', icon: '🔵', exact: false },
         { path: 'image-preview', label: 'Image Preview', icon: '🖼️', exact: false },
+        { path: 'signal-dropdown', label: 'Signal Dropdown', icon: '▾', exact: false },
+        { path: 'signal-text-input', label: 'Signal Text Input', icon: '✏️', exact: false },
+        { path: 'signal-textarea', label: 'Signal Textarea', icon: '📝', exact: false },
       ],
     },
   ];

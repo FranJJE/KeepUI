@@ -107,7 +107,38 @@ Finished components that do the following will not be accepted:
 
 All new components must be **standalone**, unless there is a strong and explicit technical reason.
 
-### 2. Careful Public API
+### 2. Separate Types File
+
+Every component that defines custom TypeScript types (variants, sizes, shapes, states, or any other union/enum-like type) must place those types in a dedicated file named `<component-name>.types.ts` inside the component folder.
+
+Rules:
+
+- the file must be named `<component-name>.types.ts` — for example `button.types.ts`, `input.types.ts`
+- all types used by the component's inputs, outputs, or internal logic must live in this file
+- the component file must import its types from this sibling file, not declare them inline
+- all public types must be re-exported from `public-api.ts` so consumers can use them without deep imports
+- do not mix types from different components in the same file
+
+Example folder structure for a `button` component:
+
+```
+components/
+  button/
+    button.component.ts
+    button.component.html
+    button.types.ts       ← all Button-specific types live here
+```
+
+Example `button.types.ts`:
+
+```ts
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+export type ButtonSize = 'md' | 'auto';
+export type ButtonShape = 'pill' | 'rounded';
+export type ButtonType = 'button' | 'submit' | 'reset';
+```
+
+### 3. Careful Public API
 
 Each component must be designed with a clear API:
 
@@ -116,7 +147,7 @@ Each component must be designed with a clear API:
 - consistent naming
 - avoid coupling business logic to the component
 
-### 3. Accessibility as a First-Class Requirement
+### 4. Accessibility as a First-Class Requirement
 
 Accessibility is not optional. Every component must fully satisfy the following requirements before it is considered done.
 
@@ -171,7 +202,7 @@ Apply ARIA attributes wherever the native HTML alone is not sufficient:
 - state changes that are not visually obvious (loading completion, errors, success messages) must be announced via a live region (`role="status"` or `role="alert"`)
 - loading spinners must have `aria-hidden="true"` on the visual element and the containing button must carry `aria-busy="true"`
 
-### 4. Internationalisation (i18n)
+### 5. Internationalisation (i18n)
 
 KeepUI uses **`@jsverse/transloco`** as its i18n solution with the translation scope `'keepui'`.
 
@@ -216,7 +247,7 @@ Every new translation key must have values in all three languages before the com
 
 Consumers must call `provideKeepUiI18n()` in their `app.config.ts` to activate transloco support. Document this requirement in the component's JSDoc.
 
-### 5. Responsiveness
+### 6. Responsiveness
 
 Components must behave reasonably well on:
 
@@ -242,6 +273,8 @@ Maintain the separation between:
 - `tokens`
 - `services`
 - `providers`
+
+Each component folder is self-contained and must include its own `<component-name>.types.ts` file. Do not place component-specific types in a shared `models` folder unless they are genuinely shared across multiple unrelated components.
 
 If Capacitor support exists, keep native code separate from the core.
 
@@ -404,6 +437,7 @@ A task on a component is not considered closed if any of these points is missing
 - component implemented
 - correctly exported
 - demo updated
+- README updated with the new component's full API documentation
 - light validated
 - dark validated
 - accessibility requirements met (ARIA, keyboard, focus ring, contrast, touch targets)
@@ -418,7 +452,9 @@ Always use this checklist.
 ### Library
 
 - [ ] create component folder
-- [ ] implement standalone component
+- [ ] create `<component-name>.types.ts` with all component-specific types
+- [ ] implement standalone component importing its types from the sibling `.types.ts` file
+- [ ] export all public types from `public-api.ts`
 - [ ] define inputs/outputs if applicable
 - [ ] apply styles with Tailwind
 - [ ] use correct semantic HTML elements
@@ -435,6 +471,7 @@ Always use this checklist.
 - [ ] review visual in light mode
 - [ ] review visual in dark mode
 - [ ] export in `public-api.ts`
+- [ ] add the component to `README.md` — selector, usage examples, full inputs/outputs table, and any required prerequisite
 - [ ] add basic tests (including ARIA attribute assertions)
 
 ### Demo
@@ -461,7 +498,9 @@ Always use this checklist.
 
 - [ ] review API compatibility
 - [ ] avoid unnecessary breaking changes
+- [ ] keep types in the component's `<component-name>.types.ts` file — move inline types there if they are not already
 - [ ] update demo to reflect changes
+- [ ] update `README.md` to reflect API changes (inputs, outputs, slots, types)
 - [ ] validate visual in light mode
 - [ ] validate visual in dark mode
 - [ ] adjust tests if the contract changed
@@ -505,6 +544,10 @@ Always use this checklist.
 Do not do this:
 
 - create components without integrating them in the demo
+- add a new component without documenting it in `README.md` (selector, examples, full API table)
+- leave the README with outdated or incomplete API tables after modifying a component
+- declare component-specific types inline inside the component file — always use a sibling `<component-name>.types.ts` file
+- place component-specific types in a shared `models` folder unless they are genuinely shared across unrelated components
 - use hardcoded colors that break dark mode
 - put native logic inside the core
 - add styles outside the system without need
@@ -531,10 +574,11 @@ A component-related task is done only if:
 4. it has a useful functional example
 5. it is validated in light theme
 6. it is validated in dark theme
-7. its minimum tests are covered if applicable
-8. all interactive elements are keyboard-operable with visible focus
-9. required ARIA attributes are present and correct
-10. every internal user-visible string has translation values in `en`, `es`, and `de`
+7. `README.md` includes the component with its selector, usage examples, and full inputs/outputs/signals table
+8. its minimum tests are covered if applicable
+9. all interactive elements are keyboard-operable with visible focus
+10. required ARIA attributes are present and correct
+11. every internal user-visible string has translation values in `en`, `es`, and `de`
 
 ---
 
@@ -543,6 +587,7 @@ A component-related task is done only if:
 Whenever you add, replace, or refactor a KeepUI component:
 
 - also update the demo
+- update `README.md` with the component's selector, usage examples, and full inputs/outputs table
 - verify light and dark
 - keep Tailwind as the style base
 - preserve the separation between core and Capacitor

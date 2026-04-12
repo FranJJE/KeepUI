@@ -51,7 +51,7 @@ Provides:
 - Light theme CSS custom properties (default)
 - Dark theme via `[data-theme="dark"]`
 - Auto dark via `@media (prefers-color-scheme: dark)`
-- Tailwind v4 `@theme inline` mappings for all `bg-ku-*`, `text-ku-*`, `border-ku-*` utilities
+- Tailwind v4 `@theme inline` mappings for all `bg-keepui-*`, `text-keepui-*`, `border-keepui-*`, `shadow-keepui-*` utilities
 
 #### Theme switching at runtime
 
@@ -183,17 +183,13 @@ Works identically on **web** and **Angular + Capacitor** (no native API usage).
 | Input | Type | Default | Description |
 |---|---|---|---|
 | `variant` | `ButtonVariant` | `'primary'` | Visual style of the button. |
-| `size` | `ButtonSize` | `'md'` | Size mode.
- - `md` → fixed 160 px wide, 40 px tall.
- - `auto` → padding-driven width, 40 px tall. |
+| `size` | `ButtonSize` | `'md'` | Size mode. - `md` → fixed 160 px wide, 40 px tall. - `auto` → padding-driven width, 40 px tall. |
 | `shape` | `ButtonShape` | `'pill'` | Border-radius style. |
 | `type` | `ButtonType` | `'button'` | HTML `type` attribute of the inner `<button>`. |
 | `disabled` | `boolean` | `false` | Disables the button when `true`. |
-| `loading` | `boolean` | `false` | Replaces the content with an animated spinner and sets `aria-busy`.
- Also disables the button until the operation completes. |
+| `loading` | `boolean` | `false` | Replaces the content with an animated spinner and sets `aria-busy`. Also disables the button until the operation completes. |
 | `fullWidth` | `boolean` | `false` | Expands the button to fill its container width. |
-| `ariaLabel` | `string` | `''` | Accessible label for icon-only buttons.
- When provided, sets the `aria-label` attribute on the inner `<button>`. |
+| `ariaLabel` | `string` | `''` | Accessible label for icon-only buttons. When provided, sets the `aria-label` attribute on the inner `<button>`. |
 
 #### Outputs
 
@@ -215,76 +211,121 @@ Works identically on **web** and **Angular + Capacitor** (no native API usage).
 **Selector:** `keepui-card`
 **Import:** `import { CardComponent } from '@keepui/ui';`
 
-Versatile card container with support for variant, padding, surface colour,
-clickable state, selected state, scrollable mode and full-height layout.
-Accepts any content via `<ng-content>` and adapts to the active theme automatically.
+Contenedor versátil con soporte de variante, padding, color, estado clickable,
+seleccionado y scrollable.
 
-#### The `screen` padding — automatic bottom spacer
-
-`padding="screen"` applies horizontal and top padding but intentionally omits
-the bottom padding so that content appears to continue beyond the visible area,
-inviting the user to scroll. A hidden spacer element is automatically appended
-after all projected content: when the user reaches the bottom of the scroll the
-correct visual gap is shown **without any manual `padding-bottom` on the
-projected content**.
+`padding="screen"` aplica padding lateral y superior pero omite el inferior
+intencionadamente para que el contenido parezca continuar más allá del área visible,
+invitando al usuario a hacer scroll. Un `div` espaciador se inserta automáticamente
+al final del contenido proyectado: cuando el usuario llega al fondo, el espaciador
+reproduce el padding inferior correcto sin que el consumidor deba declararlo.
 
 ```html
-<!-- Basic usage -->
-<keepui-card>
-  <h2>Title</h2>
-  <p>Some content</p>
-</keepui-card>
+<keepui-card>Contenido</keepui-card>
 
-<!-- Flat card, large padding, clickable -->
 <keepui-card variant="flat" padding="lg" [clickable]="true" (clicked)="onSelect()">
-  Clickable flat card
+  Card clicable
 </keepui-card>
 
-<!-- Selected state (brand-colour border) -->
-<keepui-card [clickable]="true" [selected]="isSelected" (clicked)="isSelected = true">
-  Select me
-</keepui-card>
-
-<!-- Scrollable panel — bottom padding handled automatically -->
 <div class="h-screen overflow-hidden">
   <keepui-card padding="screen" [scrollable]="true" [fullHeight]="true">
-    <!-- Long content list — no padding-bottom needed -->
-    @for (item of items; track item) {
-      <div class="py-3 border-b border-ku-secondary-border">{{ item }}</div>
-    }
+    Contenido largo — el padding inferior se gestiona automáticamente
   </keepui-card>
 </div>
-
-<!-- Secondary surface colour -->
-<keepui-card colors="secondary">Secondary surface</keepui-card>
 ```
 
 #### Inputs
 
 | Input | Type | Default | Description |
 |---|---|---|---|
-| `variant` | `CardVariant` | `'outlined'` | `outlined` shows a subtle border; `flat` has no border. |
-| `padding` | `CardPadding` | `'md'` | Internal spacing. `screen` applies horizontal + top padding and auto-inserts a bottom spacer. |
-| `colors` | `CardColors` | `'primary'` | Background surface colour token. |
-| `clickable` | `boolean` | `false` | Enables hover, focus ring and button semantics (`role="button"`, `tabindex="0"`). |
-| `selected` | `boolean` | `false` | Renders a brand-colour border to indicate the selected state. |
-| `scrollable` | `boolean` | `false` | Activates `overflow-y-auto`. Pair with `fullHeight` for a constrained scroll area. |
-| `fullHeight` | `boolean` | `false` | Applies `h-full` to both the host element and the inner container. |
+| `variant` | `CardVariant` | `'outlined'` |  |
+| `padding` | `CardPadding` | `'md'` |  |
+| `colors` | `CardColors` | `'primary'` |  |
+| `clickable` | `boolean` | `false` |  |
+| `selected` | `boolean` | `false` |  |
+| `scrollable` | `boolean` | `false` |  |
+| `fullHeight` | `boolean` | `false` |  |
 
 #### Outputs
 
 | Output | Emitter type | Description |
 |---|---|---|
-| `clicked` | `OutputEmitterRef<void>` | Emitted on click or `Enter` / `Space` keydown when `clickable` is `true`. |
-
-#### Content slots (`ng-content`)
-
-| Slot | Description |
-|---|---|
-| *(default)* | Any projected content. |
+| `clicked` | `OutputEmitterRef<void>` |  |
 
 ---
-### 5.3 `ImagePreviewComponent`
+### 5.3 `IconActionButtonComponent`
+
+**Selector:** `keepui-icon-action-button`
+**Import:** `import { IconActionButtonComponent } from '@keepui/ui';`
+
+Circular icon-only action button with `default` and `danger` variants,
+loading state, and full accessibility support.
+
+Because this button renders no visible text, `ariaLabel` is **required** to
+satisfy WCAG 2.1 SC 4.1.2 (Name, Role, Value).
+
+The icon color is inherited automatically via `currentColor` from the button's
+text color, so SVG symbols defined with `stroke="currentColor"` will adapt to
+both variants and themes without extra classes.
+
+```html
+<keepui-icon-action-button icon="edit-icon" ariaLabel="Editar" />
+
+<keepui-icon-action-button
+  icon="trash-icon"
+  variant="danger"
+  ariaLabel="Eliminar elemento"
+  [loading]="isDeleting()"
+/>
+```
+
+#### Inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `icon` | `unknown` | — | ID of the SVG symbol to render (without the `#` prefix). |
+| `ariaLabel` | `unknown` | — | Accessible label for the button. Always required — icon-only buttons must have a programmatic name for screen readers (WCAG 2.1 SC 4.1.2). |
+| `variant` | `IconActionButtonVariant` | `'default'` | Visual style variant. |
+| `iconSize` | `number` | `20` | Size of the inner icon in pixels. |
+| `type` | `IconActionButtonType` | `'button'` | HTML `type` attribute of the inner `<button>`. |
+| `disabled` | `boolean` | `false` | Disables the button when `true`. |
+| `loading` | `boolean` | `false` | Shows an animated spinner and disables the button. Also sets `aria-busy="true"` on the element. |
+
+---
+### 5.4 `IconComponent`
+
+**Selector:** `keepui-icon`
+**Import:** `import { IconComponent } from '@keepui/ui';`
+
+Generic SVG sprite icon renderer.
+
+Renders a `<use href="#name">` reference pointing to an SVG symbol pre-registered
+in the DOM by the consuming application (e.g. via `IconRegistryService`).
+
+Accessibility:
+- When used decoratively (default), the SVG carries `aria-hidden="true"` automatically.
+- When used as a standalone meaningful icon, supply an `ariaLabel` — the SVG will
+  receive `role="img"` and `aria-label` accordingly.
+
+```html
+<!-- Decorative — hidden from screen readers -->
+<keepui-icon name="check-icon" [size]="20" aria-hidden="true" />
+
+<!-- Meaningful standalone icon -->
+<keepui-icon name="close-icon" ariaLabel="Cerrar" />
+```
+
+#### Inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `name` | `unknown` | — | ID of the SVG symbol to render (without the `#` prefix). |
+| `size` | `number` | `24` | Width and height of the icon in pixels. |
+| `viewBox` | `string` | `'0 0 24 24'` | `viewBox` attribute forwarded to the `<svg>` element. |
+| `ariaLabel` | `string` | `''` | Accessible label for standalone icons. When provided, sets `role="img"` and `aria-label` on the SVG. When omitted, the SVG is marked `aria-hidden="true"` (decorative). |
+
+---
+### 5.5 `ImagePreviewComponent`
 
 **Selector:** `keepui-image-preview`
 **Import:** `import { ImagePreviewComponent } from '@keepui/ui';`
@@ -316,10 +357,144 @@ Prerequisites — register providers in `app.config.ts`:
 | `loading` | `Signal<boolean>` | True while the pick operation is in progress. |
 
 ---
+### 5.6 `SignalDropdownComponent`
+
+**Selector:** `keepui-signal-dropdown`
+**Import:** `import { SignalDropdownComponent } from '@keepui/ui';`
+
+Signal-based accessible dropdown / select component.
+
+Fully platform-agnostic — no native API usage. The panel opens in `fixed`
+position so it is never clipped by overflow-hidden ancestors. It repositions
+itself automatically on scroll and resize.
+
+The `value` and `touched` properties are `model()` signals so the component
+integrates seamlessly with Angular signal-based forms.
+
+```html
+<keepui-signal-dropdown
+  label="País"
+  placeholder="Selecciona un país"
+  [options]="countries"
+  [(value)]="selectedCountry"
+/>
+```
+
+#### Inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | `''` | Optional label text rendered above the dropdown. |
+| `placeholder` | `string` | `''` | Placeholder shown when no value is selected. |
+| `options` | `unknown` | — | Array of options to display in the panel. |
+| `width` | `SignalDropdownWidth` | `'full'` | Layout width of the wrapper. |
+| `required` | `boolean` | `false` | Marks the field as required. Adds `aria-required` and a visual asterisk. |
+| `errorMessage` | `string` | `''` | Human-readable error message shown below the dropdown. Takes precedence over `errors[0]`. |
+| `errors` | `readonly string[]` | `[]` | Array of error strings. The first item is displayed when `errorMessage` is empty. Set together with `invalid=true` to trigger the error state. |
+| `selectId` | `string` | ``ku-dropdown-${Math.random(` | Stable `id` used to link the `<label>` with the trigger `<button>`. A random suffix is generated by default. |
+| `disabled` | `boolean` | `false` | Disables the dropdown. |
+| `invalid` | `boolean` | `false` | Forces the error visual state regardless of the `touched` model. Useful for external form validation. |
+
+#### Outputs
+
+| Output | Emitter type | Description |
+|---|---|---|
+| `valueChange` | `OutputEmitterRef<T | null>` | Emitted when the selected value changes. |
+
+---
+### 5.7 `SignalTextareaComponent`
+
+**Selector:** `keepui-signal-textarea`
+**Import:** `import { SignalTextareaComponent } from '@keepui/ui';`
+
+Signal-based accessible textarea component with character counter,
+resize control, and integrated error display.
+
+The `value` and `touched` properties are `model()` signals so the component
+integrates seamlessly with Angular signal-based forms.
+
+```html
+<keepui-signal-textarea
+  label="Descripción"
+  placeholder="Escribe aquí…"
+  [rows]="5"
+  [maxLength]="500"
+  [(value)]="description"
+/>
+```
+
+#### Inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | `''` | Optional label text rendered above the textarea. |
+| `placeholder` | `string` | `''` | Placeholder passed to the underlying `<textarea>`. |
+| `rows` | `number` | `4` | Number of visible text rows. |
+| `width` | `SignalTextareaWidth` | `'full'` | Layout width of the wrapper. |
+| `resize` | `SignalTextareaResize` | `'none'` | CSS `resize` behaviour. |
+| `required` | `boolean` | `false` | Marks the field as required. |
+| `errorMessage` | `string` | `''` | Human-readable error message. Takes precedence over `errors[0]`. |
+| `errors` | `readonly string[]` | `[]` | Array of error strings. The first item is displayed when `errorMessage` is empty. Set together with `invalid=true` to trigger the error state. |
+| `textareaId` | `string` | ``ku-textarea-${Math.random(` | Stable `id` used to link the `<label>` with the `<textarea>`. A random suffix is generated by default. |
+| `disabled` | `boolean` | `false` | Disables the textarea. |
+| `maxLength` | `number | undefined` | `undefined` | Maximum number of characters allowed. Shows a character counter when set. |
+| `invalid` | `boolean` | `false` | Forces the error visual state regardless of the `touched` model. Useful for external form validation. |
+
+---
+### 5.8 `SignalTextInputComponent`
+
+**Selector:** `keepui-signal-text-input`
+**Import:** `import { SignalTextInputComponent } from '@keepui/ui';`
+
+Signal-based accessible text input supporting all common HTML input types,
+leading/trailing icons, a trailing content slot, and a built-in
+password-visibility toggle (when `type="password"`).
+
+The `value` and `touched` properties are `model()` signals so the component
+integrates seamlessly with Angular signal-based forms.
+
+Password toggle labels are translated via Transloco (scope `'keepui'`).
+Call `provideKeepUiI18n()` in your `app.config.ts` to activate i18n.
+
+```html
+<keepui-signal-text-input
+  label="Email"
+  type="email"
+  placeholder="usuario@ejemplo.com"
+  leadingIcon="mail-icon"
+  [(value)]="email"
+/>
+
+<!-- Password with toggle -->
+<keepui-signal-text-input
+  label="Contraseña"
+  type="password"
+  [(value)]="password"
+/>
+```
+
+#### Inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | `''` | Optional label text rendered above the input. |
+| `placeholder` | `string` | `''` | Placeholder passed to the underlying `<input>`. |
+| `type` | `SignalTextInputType` | `'text'` | HTML `type` attribute. Use `'password'` to enable the visibility toggle. |
+| `width` | `SignalTextInputWidth` | `'full'` | Layout width of the wrapper. |
+| `leadingIcon` | `string` | `''` | Name of the leading icon (SVG symbol ID). Leave empty for no icon. |
+| `trailingIcon` | `string` | `''` | Name of the trailing icon (SVG symbol ID). Ignored when `type="password"`. |
+| `hasTrailingSlot` | `boolean` | `false` | When `true`, a slot for custom trailing content is enabled (projects `[trailingSlot]` content). Overrides `trailingIcon`. |
+| `required` | `boolean` | `false` | Marks the field as required. Adds `aria-required` and a visual asterisk. |
+| `showRequiredIndicator` | `boolean` | `true` | When `false`, hides the visual asterisk even if `required=true`. |
+| `errorMessage` | `string` | `''` | Human-readable error message. Takes precedence over `errors[0]`. |
+| `errors` | `readonly string[]` | `[]` | Array of error strings. The first item is displayed when `errorMessage` is empty. Set together with `invalid=true` to trigger the error state. |
+| `inputId` | `string` | ``ku-text-input-${Math.random(` | Stable `id` used to link the `<label>` with the `<input>`. A random suffix is generated by default. |
+| `disabled` | `boolean` | `false` | Disables the input. |
+| `invalid` | `boolean` | `false` | Forces the error visual state regardless of the `touched` model. Useful for external form validation. |
+
+---
 
 ## 6. Type definitions
-
-### Button types
 
 > Visual style variant of the button.
 
@@ -349,35 +524,66 @@ type ButtonShape = 'pill' | 'rounded';
 type ButtonType = 'button' | 'submit' | 'reset';
 ```
 
-### Card types
-
-> Visual border style of the card.
-- `outlined`: subtle border using the secondary border token.
-- `flat`: no border.
-
 ```ts
 type CardVariant = 'flat' | 'outlined';
 ```
-
-> Internal padding preset.
-- `none`: no padding.
-- `sm`: 12 px all sides.
-- `md`: 16 px all sides (default).
-- `lg`: 24 px all sides.
-- `screen`: 16 px horizontal + 16 px top, no bottom. A spacer element is
-  automatically appended so the bottom gap appears when the user scrolls
-  to the end — no manual `padding-bottom` required on the projected content.
 
 ```ts
 type CardPadding = 'none' | 'sm' | 'md' | 'lg' | 'screen';
 ```
 
-> Background surface colour.
-- `primary`: maps to `--ku-primary`.
-- `secondary`: maps to `--ku-secondary`.
-
 ```ts
 type CardColors = 'primary' | 'secondary';
+```
+
+```ts
+type IconActionButtonVariant = 'default' | 'danger';
+```
+
+```ts
+type IconActionButtonType = 'button' | 'submit' | 'reset';
+```
+
+> Layout width of the dropdown wrapper.
+
+```ts
+type SignalDropdownWidth = 'full' | 'half' | 'auto';
+```
+
+> Layout width of the text input wrapper.
+
+```ts
+type SignalTextInputWidth = 'full' | 'half' | 'auto';
+```
+
+> HTML `type` attribute for the underlying `<input>` element.
+Use `'password'` to enable the built-in show/hide toggle.
+
+```ts
+type SignalTextInputType = | 'text'
+  | 'email'
+  | 'tel'
+  | 'number'
+  | 'password'
+  | 'search'
+  | 'url'
+  | 'date';
+```
+
+> Layout width of the textarea wrapper.
+
+```ts
+type SignalTextareaWidth = 'full' | 'half' | 'auto';
+```
+
+> CSS `resize` behaviour of the `<textarea>` element.
+- `none` → not resizable (default).
+- `vertical` → user can drag to resize vertically.
+- `horizontal` → user can drag to resize horizontally.
+- `both` → user can drag freely.
+
+```ts
+type SignalTextareaResize = 'none' | 'vertical' | 'horizontal' | 'both';
 ```
 
 ---
@@ -485,6 +691,8 @@ translocoService.translate(T.IMAGE_PREVIEW.SELECT_IMAGE);
 | `IMAGE_PREVIEW.LOADING` | `imagePreview.loading` |
 | `IMAGE_PREVIEW.PREVIEW_ALT` | `imagePreview.previewAlt` |
 | `IMAGE_PREVIEW.ERROR_UNEXPECTED` | `imagePreview.errorUnexpected` |
+| `SIGNAL_TEXT_INPUT.SHOW_PASSWORD` | `signalTextInput.showPassword` |
+| `SIGNAL_TEXT_INPUT.HIDE_PASSWORD` | `signalTextInput.hidePassword` |
 
 **Changing language at runtime:**
 
@@ -499,133 +707,68 @@ lang.setLanguage('es');  // 'en' | 'es' | 'de'
 
 ## 10. CSS design tokens
 
-All tokens follow the `--ku-*` naming convention and are defined in
-`@keepui/ui/styles`. Override any variable in your CSS to customise the theme.
-
-### Surface tokens
+Override any variable in your CSS to customise the theme:
 
 ```css
 :root {
-  /* Primary surface (app background) */
-  --ku-primary:        #F9F9F9;
-  --ku-primary-hover:  #E2E3E8;
-  --ku-primary-text:   #171717;
-  --ku-primary-border: #E2E3E8;
-
-  /* Secondary surface (cards, panels) */
-  --ku-secondary:        #FFFFFF;
-  --ku-secondary-hover:  #F9F9F9;
-  --ku-secondary-text:   #171717;
-  --ku-secondary-border: #E2E3E8;
+  --keepui-primary:            #3b82f6;
+  --keepui-primary-hover:      #2563eb;
+  --keepui-primary-active:     #1d4ed8;
+  --keepui-primary-foreground: #ffffff;
+  --keepui-background:         #f5f5f5;
+  --keepui-surface:            #ffffff;
+  --keepui-surface-hover:      #f0f0f0;
+  --keepui-border:             #e0e0e0;
+  --keepui-border-strong:      #cccccc;
+  --keepui-text:               #1f2937;
+  --keepui-text-muted:         #6b7280;
+  --keepui-text-disabled:      #9ca3af;
+  --keepui-error:              #dc2626;
+  --keepui-error-foreground:   #ffffff;
+  --keepui-success:            #16a34a;
+  --keepui-warning:            #f59e0b;
+  --keepui-shadow-sm:          0 1px 3px rgba(0,0,0,.12);
+  --keepui-shadow-md:          0 3px 6px rgba(0,0,0,.15);
+  --keepui-shadow-lg:          0 6px 12px rgba(0,0,0,.18);
 }
 
 [data-theme="dark"] {
-  --ku-primary:        #050505;
-  --ku-primary-hover:  #2C2D31;
-  --ku-primary-text:   #FFFFFF;
-  --ku-primary-border: #2C2D31;
-
-  --ku-secondary:        #15161A;
-  --ku-secondary-hover:  #2C2D31;
-  --ku-secondary-text:   #FFFFFF;
-  --ku-secondary-border: #2C2D31;
+  --keepui-primary:            #60a5fa;
+  --keepui-primary-foreground: #0f172a;
+  --keepui-background:         #0f172a;
+  --keepui-surface:            #1e293b;
+  --keepui-surface-hover:      #334155;
+  --keepui-border:             #334155;
+  --keepui-border-strong:      #475569;
+  --keepui-text:               #f1f5f9;
+  --keepui-text-muted:         #94a3b8;
+  --keepui-text-disabled:      #64748b;
+  --keepui-error:              #f87171;
+  --keepui-error-foreground:   #0f172a;
+  --keepui-success:            #4ade80;
+  --keepui-warning:            #fbbf24;
 }
 ```
-
-### Semantic colour palette
-
-Each semantic colour exposes three tokens: `*-bg`, `*-border`, `*-text`.
-
-```css
-:root {
-  /* Gray */
-  --ku-gray-bg: #F5F5F5;   --ku-gray-border: #D5D7DA;   --ku-gray-text: #6B7280;
-
-  /* Brand (purple) */
-  --ku-brand-bg: #F9F5FF;  --ku-brand-border: #D6BBFB;  --ku-brand-text: #6941C6;
-
-  /* Indigo */
-  --ku-indigo-bg: #EEF4FF; --ku-indigo-border: #C7D7FE; --ku-indigo-text: #3538CD;
-
-  /* Blue */
-  --ku-blue-bg: #EFF8FF;   --ku-blue-border: #B2DDFF;   --ku-blue-text: #175CD3;
-
-  /* Pink */
-  --ku-pink-bg: #FDF2FA;   --ku-pink-border: #FCCEEE;   --ku-pink-text: #C11574;
-
-  /* Orange */
-  --ku-orange-bg: #FFF6ED; --ku-orange-border: #F9DBAF; --ku-orange-text: #B93815;
-
-  /* Yellow */
-  --ku-yellow-bg: #FEFBE8; --ku-yellow-border: #FEDF89; --ku-yellow-text: #A15C07;
-
-  /* Green */
-  --ku-green-bg: #ECFDF3;  --ku-green-border: #ABEFC6;  --ku-green-text: #067647;
-
-  /* Purple */
-  --ku-purple-bg: #F4F3FF; --ku-purple-border: #D9D6FE; --ku-purple-text: #5925DC;
-
-  /* Teal */
-  --ku-teal-bg: #F0FDFA;   --ku-teal-border: #99F6E4;   --ku-teal-text: #0F766E;
-
-  /* Red */
-  --ku-red-bg: #FFF1F2;    --ku-red-border: #FECDD3;    --ku-red-text: #B91C1C;
-}
-
-[data-theme="dark"] {
-  --ku-gray-bg: #1F2937;   --ku-gray-border: #4B5563;   --ku-gray-text: #9CA3AF;
-  --ku-brand-bg: #2E1065;  --ku-brand-border: #7C3AED;  --ku-brand-text: #C4B5FD;
-  --ku-indigo-bg: #1E1B4B; --ku-indigo-border: #4338CA; --ku-indigo-text: #A5B4FC;
-  --ku-blue-bg: #0C1D3E;   --ku-blue-border: #2563EB;   --ku-blue-text: #93C5FD;
-  --ku-pink-bg: #3D0B2F;   --ku-pink-border: #DB2777;   --ku-pink-text: #F9A8D4;
-  --ku-orange-bg: #2C1204; --ku-orange-border: #EA580C; --ku-orange-text: #FDBA74;
-  --ku-yellow-bg: #2C1F02; --ku-yellow-border: #CA8A04; --ku-yellow-text: #FDE047;
-  --ku-green-bg: #052E16;  --ku-green-border: #16A34A;  --ku-green-text: #4ADE80;
-  --ku-purple-bg: #1C1040; --ku-purple-border: #6D28D9; --ku-purple-text: #C4B5FD;
-  --ku-teal-bg: #042A28;   --ku-teal-border: #0D9488;   --ku-teal-text: #2DD4BF;
-  --ku-red-bg: #2D0B0B;    --ku-red-border: #DC2626;    --ku-red-text: #FCA5A5;
-}
-```
-
-> Auto dark mode is also supported via `@media (prefers-color-scheme: dark)` for
-> apps that do not set `[data-theme]` explicitly.
 
 ---
 
 ## 11. Tailwind utility classes
 
-Generated automatically after `@import "@keepui/ui/styles"` with Tailwind v4.
-All utilities use the `ku-` prefix and map directly to the CSS custom properties.
+Generated automatically after `@import "@keepui/ui/styles"` with Tailwind v4:
 
 ```
-/* Surface backgrounds */
-bg-ku-primary          bg-ku-primary-hover
-bg-ku-secondary        bg-ku-secondary-hover
+bg-keepui-background      bg-keepui-surface        bg-keepui-surface-hover
+bg-keepui-primary         bg-keepui-primary-hover  bg-keepui-primary-active
+bg-keepui-error           bg-keepui-success        bg-keepui-warning
 
-/* Text */
-text-ku-primary-text   text-ku-secondary-text
-text-ku-gray-text      text-ku-brand-text
+text-keepui-text          text-keepui-text-muted   text-keepui-text-disabled
+text-keepui-primary       text-keepui-primary-fg   text-keepui-error
 
-/* Borders */
-border-ku-primary-border    border-ku-secondary-border
-border-ku-gray-border       border-ku-brand-border
+border-keepui-border      border-keepui-border-strong  border-keepui-primary
 
-/* Semantic colours — bg / border / text per colour */
-bg-ku-gray-bg    border-ku-gray-border    text-ku-gray-text
-bg-ku-brand-bg   border-ku-brand-border   text-ku-brand-text
-bg-ku-indigo-bg  border-ku-indigo-border  text-ku-indigo-text
-bg-ku-blue-bg    border-ku-blue-border    text-ku-blue-text
-bg-ku-pink-bg    border-ku-pink-border    text-ku-pink-text
-bg-ku-orange-bg  border-ku-orange-border  text-ku-orange-text
-bg-ku-yellow-bg  border-ku-yellow-border  text-ku-yellow-text
-bg-ku-green-bg   border-ku-green-border   text-ku-green-text
-bg-ku-purple-bg  border-ku-purple-border  text-ku-purple-text
-bg-ku-teal-bg    border-ku-teal-border    text-ku-teal-text
-bg-ku-red-bg     border-ku-red-border     text-ku-red-text
+shadow-keepui-sm          shadow-keepui-md         shadow-keepui-lg
 
-/* Focus rings */
-focus-visible:ring-ku-primary-border
-focus-visible:ring-ku-brand-border
+focus-visible:ring-keepui-primary
 ```
 
 ---

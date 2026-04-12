@@ -17,6 +17,10 @@ export interface KeepUiTranslationSchema {
     previewAlt: string;
     errorUnexpected: string;
   };
+  signalTextInput: {
+    showPassword: string;
+    hidePassword: string;
+  };
 }
 
 const EN: KeepUiTranslationSchema = {
@@ -25,6 +29,10 @@ const EN: KeepUiTranslationSchema = {
     loading: 'Loading…',
     previewAlt: 'Selected image preview',
     errorUnexpected: 'An unexpected error occurred',
+  },
+  signalTextInput: {
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
   },
 };
 
@@ -35,6 +43,10 @@ const ES: KeepUiTranslationSchema = {
     previewAlt: 'Vista previa de imagen seleccionada',
     errorUnexpected: 'Ha ocurrido un error inesperado',
   },
+  signalTextInput: {
+    showPassword: 'Mostrar contraseña',
+    hidePassword: 'Ocultar contraseña',
+  },
 };
 
 const DE: KeepUiTranslationSchema = {
@@ -43,6 +55,10 @@ const DE: KeepUiTranslationSchema = {
     loading: 'Laden…',
     previewAlt: 'Vorschau des ausgewählten Bildes',
     errorUnexpected: 'Ein unerwarteter Fehler ist aufgetreten',
+  },
+  signalTextInput: {
+    showPassword: 'Passwort anzeigen',
+    hidePassword: 'Passwort verbergen',
   },
 };
 

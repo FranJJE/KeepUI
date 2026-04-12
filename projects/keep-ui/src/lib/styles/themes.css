@@ -1,5 +1,14 @@
 /* ===== LIGHT THEME (default) ===== */
 :root {
+  --ku-action-primary: #007BFF;
+  --ku-action-background: rgba(0, 123, 255, 0.2);
+  --ku-success-primary: #5ABF68;
+  --ku-success-background: rgba(90, 191, 104, 0.2);
+  --ku-error-primary: #DE695E;
+  --ku-error-background: rgba(222, 105, 94, 0.2);
+  --ku-warning-primary: #E59928;
+  --ku-warning-background: rgba(229, 153, 40, 0.2);
+
   --ku-primary: #F9F9F9;
   --ku-primary-hover: #E2E3E8;
   --ku-primary-text: #171717;
@@ -59,6 +68,15 @@
 /* ===== DARK THEME ===== */
 [data-theme="dark"],
 .dark {
+  --ku-action-primary: #007BFF;
+  --ku-action-background: rgba(0, 123, 255, 0.2);
+  --ku-success-primary: #5ABF68;
+  --ku-success-background: rgba(90, 191, 104, 0.2);
+  --ku-error-primary: #DE695E;
+  --ku-error-background: rgba(222, 105, 94, 0.2);
+  --ku-warning-primary: #E59928;
+  --ku-warning-background: rgba(229, 153, 40, 0.2);
+
   --ku-primary: #050505;
   --ku-primary-hover: #2C2D31;
   --ku-primary-text: #FFFFFF;
@@ -165,6 +183,15 @@
 /* ===== Auto dark (OS preference) ===== */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]):not(.light) {
+    --ku-action-primary: #007BFF;
+    --ku-action-background: rgba(0, 123, 255, 0.2);
+    --ku-success-primary: #5ABF68;
+    --ku-success-background: rgba(90, 191, 104, 0.2);
+    --ku-error-primary: #DE695E;
+    --ku-error-background: rgba(222, 105, 94, 0.2);
+    --ku-warning-primary: #E59928;
+    --ku-warning-background: rgba(229, 153, 40, 0.2);
+
     /* ── Semantic color palette (dark) ── */
     --ku-gray-bg: #1F2937;
     --ku-gray-border: #4B5563;

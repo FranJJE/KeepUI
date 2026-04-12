@@ -146,25 +146,24 @@ export class ButtonComponent {
 
     const variantMap: Record<ButtonVariant, string> = {
       primary: [
-        'bg-ku-primary text-ku-primary-text border border-ku-primary-border',
-        'enabled:hover:bg-ku-primary-hover enabled:hover:border-ku-primary-border',
-        'enabled:active:bg-ku-primary-hover enabled:active:border-ku-primary-border',
+        'bg-ku-action-primary text-white border border-ku-action-primary',
+        'enabled:hover:opacity-90',
+        'enabled:active:opacity-80',
       ].join(' '),
       secondary: [
-        'bg-ku-secondary text-ku-secondary-text border border-ku-secondary-border',
-        'enabled:hover:bg-ku-secondary-hover enabled:hover:border-ku-gray-border',
-        'disabled:text-ku-gray-text',
+        'bg-ku-primary text-ku-action-primary border border-ku-action-primary',
+        'enabled:hover:bg-ku-action-background transition-colors',
       ].join(' '),
       outline: [
-        'bg-transparent border border-ku-secondary-border text-ku-secondary-text',
-        'enabled:hover:border-ku-primary-border enabled:hover:text-ku-brand-text',
+        'bg-ku-primary border border-ku-secondary-border text-ku-gray-text',
+        'enabled:hover:text-ku-action-primary enabled:hover:border-ku-action-primary transition-colors',
       ].join(' '),
       ghost: [
-        'bg-transparent border border-ku-primary-border text-ku-brand-text',
-        'enabled:hover:bg-ku-primary/10',
+        'bg-transparent border border-ku-action-primary text-ku-action-primary',
+        'enabled:hover:bg-ku-action-background',
       ].join(' '),
       danger: [
-        'bg-ku-red-bg text-ku-red-text border border-ku-red-border',
+        'bg-ku-error-primary text-white border border-ku-error-primary',
         'enabled:hover:opacity-90',
         'enabled:active:opacity-80',
       ].join(' '),

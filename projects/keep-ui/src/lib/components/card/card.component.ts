@@ -1,8 +1,5 @@
 import { Component, ChangeDetectionStrategy, computed, input, output } from '@angular/core';
-
-export type CardVariant = 'flat' | 'outlined';
-export type CardPadding = 'none' | 'sm' | 'md' | 'lg' | 'screen';
-export type CardColors = 'primary' | 'secondary';
+import { CardColors, CardPadding, CardVariant } from './card.types';
 
 /**
  * Contenedor versátil con soporte de variante, padding, color, estado clickable,
